@@ -12,7 +12,7 @@ function App() {
         <h4>LAST App</h4>
         {/* <br /> */}
         <Route component={AuthForm} exact path='/' />
-        <Route component={TestMenu} exact path='/test-menu' />
+        <Route component={TestMenu} exact path='/tests' />
       </div>
     </div>
   );

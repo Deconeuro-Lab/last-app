@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function AuthForm() {
 
   const [toTests, setToTests] = useState(false);
-  const [userType, setUserType] = useState("");
+  const [userType, setUserType] = useState("examiner");
   const [userFullName, setUserFullName] = useState("");
 
   const onSubmit = e => {
@@ -19,15 +19,25 @@ function AuthForm() {
   }
 
   const onUserFullNameChange = e => {
-    setUserFullName(e.target.value);
+    setUserFullName(e.target.value.trim());
   }
 
   const onUserTypeChange = e => {
-    setUserType(e.target.id);
+    setUserType(e.target.value);
   }
 
   if (toTests) {
-    return <Redirect to="/test-menu" />
+    return <Redirect to={{
+      pathname: "/tests",
+      state: { userFullName, userType }
+    }} />
+  }
+
+  let userTypeLabel = "";
+  if (userType === "examiner") {
+    userTypeLabel = "I am an"
+  } else {
+    userTypeLabel = "I am a"
   }
 
   return (
@@ -35,20 +45,15 @@ function AuthForm() {
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label >Full Name</label>
-          <input type="text" className="form-control" id="name" autoComplete="off" onChange={onUserFullNameChange} />
+          <input type="text" className="form-control" id="name" autoComplete="off" placeholder="John Smith" onChange={onUserFullNameChange} />
         </div>
-        <label >I am the...</label>
         <div className="form-group">
-          <div className="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="examiner" name="user-type" className="custom-control-input" onChange={onUserTypeChange} />
-            <label className="custom-control-label" htmlFor="examiner">Examiner</label>
-          </div>
-          <div className="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="patient" name="user-type" className="custom-control-input" onChange={onUserTypeChange} />
-            <label className="custom-control-label" htmlFor="patient">Patient</label>
-          </div>
+          <label >{userTypeLabel}</label>
+          <select className="form-control" name="user-type" id="user-type" onChange={onUserTypeChange}>
+            <option value="examiner">Examiner</option>
+            <option value="patient">Patient</option>
+          </select>
         </div>
-
         <button className="btn btn-outline-primary">Proceed</button>
       </form>
     </div>
