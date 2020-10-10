@@ -42,6 +42,7 @@ function AuthForm() {
 
   return (
     <div className="AuthForm">
+      <h4>LAST App</h4>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label >Full Name</label>
@@ -54,7 +55,7 @@ function AuthForm() {
             <option value="patient">Patient</option>
           </select>
         </div>
-        <button className="btn btn-outline-primary">Proceed</button>
+        <button className="btn btn-menu btn-outline-primary">Proceed</button>
       </form>
     </div>
   );

@@ -1,19 +1,20 @@
 import React from 'react';
-import './css/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import TestMenu from './components/TestMenu'
+import TestDashboard from './views/TestDashboard';
+import './css/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
-    <div className='App container d-flex justify-content-center align-items-center'>
-      <div id='options' className='d-flex flex-column align-items-center p-5'>
-        <h4>LAST App</h4>
-        {/* <br /> */}
+    <div className='App d-flex justify-content-center align-items-center'>
+      <Switch>
         <Route component={AuthForm} exact path='/' />
         <Route component={TestMenu} exact path='/tests' />
-      </div>
+        <Route component={TestDashboard} exact path='/tests/A' />
+        <Route component={TestDashboard} exact path='/tests/B' />
+      </Switch>
     </div>
   );
 }
