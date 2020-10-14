@@ -1,4 +1,4 @@
-import React, { useState, useEffect, version } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import ViewPanel from '../components/TestDashboard/ViewPanel';
 import ControlPanel from '../components/TestDashboard/ControlPanel';
@@ -17,7 +17,14 @@ function TestDashboard(props) {
   const [currentSubtestHasStarted, setCurrentSubtestHasStarted] = useState(false);
   const [currentSubtestMSElapsed, setCurrentSubtestMSElapsed] = useState(0); // miliseconds elapsed for the current subtest (ie. pineapple)
 
-  // going to this path without completing the user form:
+  useEffect(() => {
+    // open practitioner instructions modal on the first subtest of each test
+    if (currentSubtestIndex === 0){
+      // alert('Open Instructions Modal');
+    }
+  }, [currentSubtestIndex]);
+
+  // going to this path without completing the user form redirects to the homepage:
   if (!props.location.state) {
     return <Redirect to="/" />
   }
@@ -44,8 +51,6 @@ function TestDashboard(props) {
     currentSubtest = tests[currentTestCategory][currentSubtestIndex];
     console.log(currentSubtest);
   }
-  
-  // TODO: open manual modal on the first subtest of each test
 
   const goToNextSubtest = (lastTestResult) => {
     // console.log(`${lastTestResult}ed MS = ${currentSubtestMSElapsed}. Going to next subtest.`);
@@ -53,13 +58,8 @@ function TestDashboard(props) {
     if (!isTestDone) {
       // set current subtest to the next one
       setCurrentSubtestHasStarted(false);
-      // set ms elapsed for current subtest to 0
       setCurrentSubtestMSElapsed(0);
-      // adjust indices/pointers to test data
       setNextTestIndices();
-  
-      // console.log(currentTestCategory);
-      // console.log(currentSubtest);
     } else {
       console.log(`Entire test (version ${testVersion}) is done.`)
       // TODO: clean up state
@@ -109,7 +109,7 @@ function TestDashboard(props) {
         setCurrentSubtestHasStarted={setCurrentSubtestHasStarted}
       />
 
-      {/* TODO: MANUAL MODAL */}
+      {/* TODO: INSTRUCTIONS MODAL */}
 
       {/* TODO: RESULTS MODAL */}
 

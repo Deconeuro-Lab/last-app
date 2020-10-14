@@ -34,7 +34,7 @@ const LASTests =
       }
     ],
     repetition: ['Duplication', 'My neighbour took a letter to the post office.'],
-    autoseq: ['count from 1 to 10'],
+    autoseq: ['Count from 1 to 10.'],
     picID: ['Racket/Racquet', 'Spoon', 'Ice Cream', 'Eye'],
     verbal: ['Point to the ceiling', 'Take the pen, but not the cup', 'Put your hand on your head, and then your finger on your nose']
   },

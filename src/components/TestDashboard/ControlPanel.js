@@ -9,7 +9,34 @@ function ControlPanel(props) {
   // determine what text to display in the Prompt
   // determine if timer is needed
   // determine PASS FAIL btn behavior
-  // determine modal content when help-button is pressed
+  const {subtest, testCategory, isTimerRequired} = props;
+
+  let prompt1;
+  let prompt2;
+  if (testCategory === 'naming') {
+    prompt1 = 'Ask the patient to name the highlighted object. Then start the timer.';
+    prompt2 = 'Stop the timer when an answer is provided.';
+  }
+  else if (testCategory === 'repetition') {
+    prompt1 = 'Ask the patient to repeat the following word or sentence:';
+    prompt2 = subtest;
+  }
+  else if (testCategory === 'autoseq') {
+    prompt1 = 'Ask the patient to do the following:';
+    prompt2 = subtest;
+  }
+  else if (testCategory === 'picID') {
+    prompt1 = `Ask the patient to show you the ${subtest}. Then start the timer.`;
+    prompt2 = 'Stop the timer when an answer is provided.';
+  }
+  else if (testCategory === 'verbal') {
+    prompt1 = 'Name the objects before starting the trial. Ask the patient to do the following:';
+    prompt2 = subtest;
+  }
+  else {
+    prompt1 = 'The test has concluded.'
+    prompt2 = 'You may now export the results and close this window.'
+  }
 
   const onPassFailBtnClick = (e) => {
     let result = e.target.value;
@@ -31,8 +58,8 @@ function ControlPanel(props) {
 
       <section className="ControlPanel-Center">
         <Timer
-          prompt1="Ask the patient to name the highlighted object. Then start the timer."
-          prompt2="Stop the timer when an answer is provided."
+          prompt1={prompt1}
+          prompt2={prompt2}
           setCurrentSubtestHasStarted={props.setCurrentSubtestHasStarted}
           setCurrentSubtestMSElapsed={props.setCurrentSubtestMSElapsed}
           currentSubtestMSElapsed={props.currentSubtestMSElapsed}
