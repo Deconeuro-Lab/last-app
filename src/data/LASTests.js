@@ -76,7 +76,7 @@ const LASTests =
     picID: ['Cat', 'Hand', 'Car', 'Tomato'],
     verbal: ['Point to the floor', 'Take the key, but not the paper', 'Touch your ear with one finger, and then your forehead with two fingers']
   },
-  order: ['naming', 'repetition', 'autoseq', 'picID', 'verbal']
+  categoriesInOrder: ['naming', 'repetition', 'autoseq', 'picID', 'verbal']
 }
 
 export default LASTests;
