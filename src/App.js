@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route, HashRouter } from 'react-router-dom'
 import AuthForm from './components/AuthForm'
 import TestMenu from './components/TestMenu'
 import TestDashboard from './views/TestDashboard';
@@ -9,12 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (
     <div className='App d-flex justify-content-center align-items-center'>
-      <Switch>
+      <HashRouter basename='/'>
         <Route component={AuthForm} exact path='/' />
         <Route component={TestMenu} exact path='/tests' />
         <Route component={TestDashboard} exact path='/tests/A' />
         <Route component={TestDashboard} exact path='/tests/B' />
-      </Switch>
+      </HashRouter>
     </div>
   );
 }

@@ -27,7 +27,8 @@ function TestMenu(props) {
     userOptions = (
       <div>
         <p className="m-0">
-          Awaiting instructions from the examiner
+          {/* Awaiting instructions from the examiner */}
+          Work in progress
         <span className="span-dots m-0">
             <Dot>.</Dot>
             <Dot>.</Dot>
