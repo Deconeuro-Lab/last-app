@@ -8,6 +8,8 @@ function ViewPanel(props) {
   // get test version???
   // get image src to display
   // if no img src, display LAST placeholder 
+  
+  // on mount and on orientation change, format test image height
 
   return (
     <div className="ViewPanel">

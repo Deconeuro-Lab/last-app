@@ -14,20 +14,7 @@
   text-align: center;
 }
 
-.ControlPanel-Prompt {
-  margin: 0;
-}
-
-.ControlPanel-Timer {
-  margin: 0;
-  font-size: 2em;
-}
-
 /* BUTTONS... */
-
-.btn-control-stopwatch {
-  margin-top: 1em;
-}
 
 .btn-control {
   width: 10em;
