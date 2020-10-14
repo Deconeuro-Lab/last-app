@@ -62,7 +62,10 @@ function TestDashboard(props) {
       // console.log(currentSubtest);
     } else {
       console.log(`Entire test (version ${testVersion}) is done.`)
-      // clean up state
+      // TODO: clean up state
+
+      // TODO: generate report
+      alert('(TODO) Generating your report...')
     }
   }
 

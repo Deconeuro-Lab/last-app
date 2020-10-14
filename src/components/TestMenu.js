@@ -59,7 +59,7 @@ function TestMenu(props) {
 
   return (
     <div className='TestMenu d-flex flex-column align-items-center'>
-      <h4>LAST App</h4>
+      <h4>LASTen App</h4>
       <p className="m-0">Welcome, {userFullName}.</p>
       <p>You are registered as {userType === "examiner" ? "an" : "a"} {userType}.</p>
       {userOptions}

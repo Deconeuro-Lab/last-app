@@ -42,7 +42,13 @@ function AuthForm() {
 
   return (
     <div className="AuthForm">
-      <h4>LAST App</h4>
+      <h4>
+        LAST
+        <select name="language" id="language" size="1">
+          <option value="en">en</option>
+        </select>
+        App
+      </h4>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label >Full Name</label>
