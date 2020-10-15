@@ -27,8 +27,7 @@ function TestMenu(props) {
     userOptions = (
       <div>
         <p className="m-0">
-          {/* Awaiting instructions from the examiner */}
-          Work in progress
+          Awaiting instructions from the examiner
         <span className="span-dots m-0">
             <Dot>.</Dot>
             <Dot>.</Dot>
@@ -64,6 +63,9 @@ function TestMenu(props) {
       <p className="m-0">Welcome, {userFullName}.</p>
       <p>You are registered as {userType === "examiner" ? "an" : "a"} {userType}.</p>
       {userOptions}
+
+      {/* <p className="m-0">This is a prototype.</p>
+      <p>Some features are still in development.</p> */}
       <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>Click here to re-enter your user info.</button>
     </div>
   );
