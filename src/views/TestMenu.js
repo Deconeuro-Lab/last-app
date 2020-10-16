@@ -6,15 +6,21 @@ import '../css/menus.css'
 
 function TestMenu(props) {
 
-  const [toHome, setToHome] = useState(false);
+  const [toUserRegistration, setToUserRegistration] = useState(false);
 
   const onBackButtonClick = () => {
-    setToHome(true);
+    setToUserRegistration(true);
   }
 
   // redirects
-  if (toHome || !props.location.state) {
-    return <Redirect to="/" />
+  if (!props.location.state) {
+    return <Redirect to='/' />
+  }
+  else if (toUserRegistration) {
+    return <Redirect to={{
+      pathname: "/user-registration",
+      state: { isAuthorized: true }
+    }} />
   }
 
   // extract user information
@@ -28,7 +34,7 @@ function TestMenu(props) {
       <div>
         <p className="m-0">
           Awaiting instructions from the examiner
-        <span className="span-dots m-0">
+          <span style={{fontSize: '2em'}}>
             <Dot>.</Dot>
             <Dot>.</Dot>
             <Dot>.</Dot>

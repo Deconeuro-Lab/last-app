@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function AuthForm() {
+function UserRegistration(props) {
 
   const [toTests, setToTests] = useState(false);
   const [userType, setUserType] = useState("examiner");
   const [userFullName, setUserFullName] = useState("");
+
+  // redirects data, passed from previous page
+  const prev = props.location.state;
+  if (!prev || !prev.isAuthorized) {
+    return <Redirect to="/" />
+  }
 
   const onSubmit = e => {
     e.preventDefault();
@@ -41,18 +47,18 @@ function AuthForm() {
   }
 
   return (
-    <div className="AuthForm">
+    <div className="UserRegistration">
       <h4>
         LASTen App
       </h4>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label >Full Name</label>
-          <input type="text" className="form-control" id="name" autoComplete="off" placeholder="John Smith" onChange={onUserFullNameChange} />
+          <input type="text" className="form-control" autoComplete="off" placeholder="John Smith" onChange={onUserFullNameChange} />
         </div>
         <div className="form-group">
           <label >{userTypeLabel}</label>
-          <select className="form-control" name="user-type" id="user-type" onChange={onUserTypeChange}>
+          <select className="form-control" onChange={onUserTypeChange}>
             <option value="examiner">Examiner</option>
             <option value="patient">Patient</option>
           </select>
@@ -63,4 +69,4 @@ function AuthForm() {
   );
 }
 
-export default AuthForm;
+export default UserRegistration;
