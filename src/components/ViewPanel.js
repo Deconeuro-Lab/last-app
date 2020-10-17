@@ -9,10 +9,10 @@ function ViewPanel(props) {
 
   // TODO: modularize this better
   if (subtest && subtest.jpg) {
-    viewElement = <img className="ViewPanel-Image fade-in" src={require(`../img/version${testVersion}/${testCategory}/${subtest.jpg}`)} alt={subtest.item} />
+    viewElement = <img className="ViewPanel-Image fade-in" src={require(`../img/version${testVersion}/${testCategory}/${subtest.jpg}`)} alt={subtest.item} draggable="false"/>
   }
   else if (testCategory === 'picID') {
-    viewElement = <img className="ViewPanel-Image fade-in" src={require(`../img/version${testVersion}/${testCategory}/test.png`)} alt="test" />
+    viewElement = <img className="ViewPanel-Image fade-in" src={require(`../img/version${testVersion}/${testCategory}/test.png`)} alt="test" draggable="false"/>
   }
   else {
     // placeholder if no image
