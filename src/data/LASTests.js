@@ -36,7 +36,7 @@ const LASTests =
     repetition: ['Duplication', 'My neighbour took a letter to the post office.'],
     autoseq: ['Count from 1 to 10.'],
     picID: ['Racket/Racquet', 'Spoon', 'Ice Cream', 'Eye'],
-    verbal: ['Point to the ceiling', 'Take the pen, but not the cup', 'Put your hand on your head, and then your finger on your nose']
+    verbal: ['Point to the ceiling.', 'Take the pen, but not the cup.', 'Put your hand on your head, and then your finger on your nose.']
   },
   B: {
     naming: [
@@ -72,9 +72,9 @@ const LASTests =
       }
     ],
     repetition: ['Publication', 'The tourist bought a ticket to the early show.'],
-    autoseq: ['count from 1 to 10'],
+    autoseq: ['Count from 1 to 10.'],
     picID: ['Cat', 'Hand', 'Car', 'Tomato'],
-    verbal: ['Point to the floor', 'Take the key, but not the paper', 'Touch your ear with one finger, and then your forehead with two fingers']
+    verbal: ['Point to the floor.', 'Take the key, but not the paper.', 'Touch your ear with one finger, and then your forehead with two fingers.']
   },
   categoriesInOrder: ['naming', 'repetition', 'autoseq', 'picID', 'verbal']
 }

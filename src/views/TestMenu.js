@@ -33,7 +33,7 @@ function TestMenu(props) {
     userOptions = (
       <div>
         <p className="m-0">
-          Awaiting instructions from the examiner
+          Under construction 👷‍♀️, stay tuned
           <span style={{fontSize: '2em'}}>
             <Dot>.</Dot>
             <Dot>.</Dot>

@@ -8,7 +8,7 @@ function Auth() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hadEnteredWrongPass, setHadEnteredWrongPass] = useState(false);
-  const [toUserRegistration, setToUserRegistration] = useState(false);
+  const [toUserRegistration, setToUserRegistration] = useState(false); // remember to set to FALSE when deploying
 
   const SECRET = "topsecret88";
 

@@ -1,0 +1,16 @@
+.Prompt-Time {
+  margin: 0;
+  font-size: 2em;
+}
+
+.Prompt-Time-Good {
+  color: black;
+}
+
+.Prompt-Time-Bad {
+  color: #d9534f;
+}
+
+.Prompt-Btn {
+  margin-top: 1em;
+}

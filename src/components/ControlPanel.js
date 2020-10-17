@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import Timer from './Timer';
+import React from 'react';
+import Prompt from './Prompt';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import '../../css/TestDashboard/ControlPanel.css'
+import '../css/TestDashboard/ControlPanel.css'
 
 function ControlPanel(props) {
 
-  // from props...
-  // determine what text to display in the Prompt
-  // determine if timer is needed
-  // determine PASS FAIL btn behavior
-  const {subtest, testCategory, isTimerRequired} = props;
+  const {
+    subtest,
+    testCategory,
+    isTimerRequired,
+    currentSubtestHasStarted,
+    entireTestIsDone
+  } = props;
 
   let prompt1;
   let prompt2;
@@ -19,11 +21,11 @@ function ControlPanel(props) {
   }
   else if (testCategory === 'repetition') {
     prompt1 = 'Ask the patient to repeat the following word or sentence:';
-    prompt2 = subtest;
+    prompt2 = `"${subtest}"`;
   }
   else if (testCategory === 'autoseq') {
     prompt1 = 'Ask the patient to do the following:';
-    prompt2 = subtest;
+    prompt2 = `"${subtest}"`;
   }
   else if (testCategory === 'picID') {
     prompt1 = `Ask the patient to show you the ${subtest}. Then start the timer.`;
@@ -31,16 +33,16 @@ function ControlPanel(props) {
   }
   else if (testCategory === 'verbal') {
     prompt1 = 'Name the objects before starting the trial. Ask the patient to do the following:';
-    prompt2 = subtest;
+    prompt2 = `"${subtest}"`;
   }
   else {
     prompt1 = 'The test has concluded.'
-    prompt2 = 'You may now export the results and close this window.'
+    prompt2 = 'You will be able to view and export the test results in the next update.'
   }
 
-  const onPassFailBtnClick = (e) => {
-    let result = e.target.value;
-    props.goToNextSubtest(result);
+  const onPassFailBtnClick = (passed) => {
+    props.recordSubtestResult(passed, isTimerRequired);
+    props.goToNextSubtest();
   }
 
   return (
@@ -50,21 +52,23 @@ function ControlPanel(props) {
         id="btn-fail"
         className="btn btn-test btn-danger btn-control-passfail"
         value="fail"
-        disabled={!props.currentSubtestHasStarted}
-        onClick={onPassFailBtnClick}
+        disabled={(!currentSubtestHasStarted && isTimerRequired) || entireTestIsDone}
+        onClick={() => onPassFailBtnClick(false)}
       >
         Fail
       </button>
 
       <section className="ControlPanel-Center">
-        <Timer
+        <Prompt
           prompt1={prompt1}
           prompt2={prompt2}
+          isTimerRequired={isTimerRequired}
+
           setCurrentSubtestHasStarted={props.setCurrentSubtestHasStarted}
           setCurrentSubtestMSElapsed={props.setCurrentSubtestMSElapsed}
           currentSubtestMSElapsed={props.currentSubtestMSElapsed}
         />
-        <button className="mt-3" className="btn subtle-label">Need help?</button>
+        {/* <button className="mt-3" className="btn subtle-label">Need help?</button> */}
       </section>
 
       <button
@@ -72,8 +76,8 @@ function ControlPanel(props) {
         id="btn-pass"
         className="btn btn-test btn-success btn-control-passfail"
         value="pass"
-        disabled={!props.currentSubtestHasStarted}
-        onClick={onPassFailBtnClick}
+        disabled={(!currentSubtestHasStarted && isTimerRequired) || entireTestIsDone}
+        onClick={() => onPassFailBtnClick(true)}
       >
         Pass
       </button>
