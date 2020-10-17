@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { Dot } from 'react-animated-dots';
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '../css/menus.css'
 
 function TestMenu(props) {
 
-  const [toUserRegistration, setToUserRegistration] = useState(false);
+  const [wantsToReenterUserInfo, setWantsToReenterUserInfo] = useState(false);
 
   const onBackButtonClick = () => {
-    setToUserRegistration(true);
+    setWantsToReenterUserInfo(true);
   }
 
-  // redirects
-  if (!props.location.state) {
+  const loggedIn = Cookies.get('loggedIn');
+  const userFirstName = Cookies.get("userFirstName");
+  const userLastName = Cookies.get("userLastName");
+  const userType = Cookies.get("userType");
+
+  if (!loggedIn) {
     return <Redirect to='/' />
   }
-  else if (toUserRegistration) {
+  else if (wantsToReenterUserInfo || !userFirstName || !userLastName || !userType) {
     return <Redirect to={{
-      pathname: "/user-registration",
-      state: { isAuthorized: true }
+      pathname: '/user-registration',
+      state: { wantsToReenterUserInfo }
     }} />
   }
-
-  // extract user information
-  let userFullName = props.location.state.userFullName;
-  let userType = props.location.state.userType;
 
   // generate user options
   let userOptions;
@@ -33,7 +34,7 @@ function TestMenu(props) {
     userOptions = (
       <div>
         <p className="m-0">
-          Under construction 👷‍♀️, stay tuned
+          Site under construction, stay tuned
           <span style={{fontSize: '2em'}}>
             <Dot>.</Dot>
             <Dot>.</Dot>
@@ -47,16 +48,10 @@ function TestMenu(props) {
     userOptions = (
       <div className="d-flex flex-column">
         <p className="m-0">Select Test Version:</p>
-        <Link to={{
-          pathname: "/tests/A",
-          state: { userFullName, userType }
-        }}>
+        <Link to="/tests/A">
           <button className='btn btn-menu btn-outline-primary m-2'>Version A</button>
         </Link>
-        <Link to={{
-          pathname: "/tests/B",
-          state: { userFullName, userType }
-        }}>
+        <Link to="/tests/B">
           <button className='btn btn-menu btn-outline-primary m-2'>Version B</button>
         </Link>
       </div>
@@ -66,12 +61,9 @@ function TestMenu(props) {
   return (
     <div className='TestMenu d-flex flex-column align-items-center'>
       <h4>LASTen App</h4>
-      <p className="m-0">Welcome, {userFullName}.</p>
+      <p className="m-0">Welcome, {userFirstName}.</p>
       <p>You are registered as {userType === "examiner" ? "an" : "a"} {userType}.</p>
       {userOptions}
-
-      {/* <p className="m-0">This is a prototype.</p>
-      <p>Some features are still in development.</p> */}
       <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>Click here to re-enter your user info.</button>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import ViewPanel from '../components/ViewPanel';
 import ControlPanel from '../components/ControlPanel';
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/TestDashboard/TestDashboard.css';
 
@@ -34,16 +35,19 @@ function TestDashboard(props) {
     }
   }, [entireTestIsDone]);
 
-  // going to this path without completing the user form redirects to the homepage:
-  if (!props.location.state) {
-    return <Redirect to="/" />
+  const loggedIn = Cookies.get('loggedIn');
+  const userFirstName = Cookies.get("userFirstName");
+  const userLastName = Cookies.get("userLastName");
+  const userType = Cookies.get("userType");
+
+  if (!loggedIn) {
+    return <Redirect to='/' />
+  }
+  else if (!userFirstName || !userLastName || userType !== "examiner") {
+    return <Redirect to='/user-registration' />
   }
 
-  // UNCOMMENT for PRODUCTION
-
-  // get test metadata
-  const userFullName = props.location.state.userFullName;
-  const userType = props.location.state.userType;
+  // get test version (A or B)
   const pathElements = props.location.pathname.split("/");
   const testVersion = pathElements[pathElements.length - 1];
 

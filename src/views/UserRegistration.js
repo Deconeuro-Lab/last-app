@@ -1,49 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UserRegistration(props) {
 
   const [toTests, setToTests] = useState(false);
+  const [toAuth, setToAuth] = useState(false);
   const [userType, setUserType] = useState("examiner");
-  const [userFullName, setUserFullName] = useState("");
+  const [userFirstName, setUserFirstName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
+  const [hadSubmittedEmptyForm, setHadSubmittedEmptyForm] = useState(false);
 
-  // redirects data, passed from previous page
-  const prev = props.location.state;
-  if (!prev || !prev.isAuthorized) {
+  useEffect(() => {
+    setUserFirstName(prevUserFirstName);
+    setUserLastName(prevUserLastName);
+    setUserType(prevUserType || "examiner");
+  }, []);
+
+  const loggedIn = Cookies.get('loggedIn');
+  const prevUserFirstName = Cookies.get("userFirstName");
+  const prevUserLastName = Cookies.get("userLastName");
+  const prevUserType = Cookies.get("userType");
+
+  if (!loggedIn || toAuth) {
     return <Redirect to="/" />
+  }
+  else if (toTests ||
+            !props.location.state
+            && (prevUserFirstName && prevUserLastName && prevUserType))
+  {
+    return <Redirect to={{
+      pathname: "/tests",
+      state: { userFirstName, userLastName, userType }
+    }} />
   }
 
   const onSubmit = e => {
     e.preventDefault();
-
-    if (userFullName && userType) {
+    if (userFirstName && userLastName && userType) {
+      Cookies.set("userFirstName", userFirstName);
+      Cookies.set("userLastName", userLastName);
+      Cookies.set("userType", userType);
       setToTests(true);
+      setHadSubmittedEmptyForm(false);
     } else {
-      alert("Please fill in the form.")
+      setHadSubmittedEmptyForm(true);
     }
   }
-
-  const onUserFullNameChange = e => {
-    setUserFullName(e.target.value.trim());
+  
+  const onBackButtonClick = e => {
+    Cookies.remove('loggedIn');
+    Cookies.remove("userFirstName");
+    Cookies.remove("userLastName");
+    Cookies.remove("userType");
+    setToAuth(true);
   }
 
   const onUserTypeChange = e => {
     setUserType(e.target.value);
   }
 
-  if (toTests) {
-    return <Redirect to={{
-      pathname: "/tests",
-      state: { userFullName, userType }
-    }} />
+  const onUserFirstNameChange = e => {
+    setUserFirstName(e.target.value.trim());
+  }
+
+  const onUserLastNameChange = e => {
+    setUserLastName(e.target.value.trim());
   }
 
   let userTypeLabel = "";
   if (userType === "examiner") {
-    userTypeLabel = "I am an"
+    userTypeLabel = "I am an..."
   } else {
-    userTypeLabel = "I am a"
+    userTypeLabel = "I am a..."
+  }
+
+  let label;
+  if (hadSubmittedEmptyForm) {
+    label = <p className="subtle-label" >Please complete the form.</p>;
+  }
+  else {
+    label = <p className="subtle-label" style={{visibility: 'hidden'}}>a</p>
   }
 
   return (
@@ -53,18 +91,22 @@ function UserRegistration(props) {
       </h4>
       <form onSubmit={onSubmit}>
         <div className="form-group">
-          <label >Full Name</label>
-          <input type="text" className="form-control" autoComplete="off" placeholder="John Smith" onChange={onUserFullNameChange} />
-        </div>
-        <div className="form-group">
           <label >{userTypeLabel}</label>
-          <select className="form-control" onChange={onUserTypeChange}>
+          <select className="form-control" onChange={onUserTypeChange} value={userType}>
             <option value="examiner">Examiner</option>
             <option value="patient">Patient</option>
           </select>
         </div>
+        <div className="form-group">
+          <input type="text" className="form-control" autoComplete="off" placeholder="First Name" onChange={onUserFirstNameChange} value={userFirstName} />
+        </div>
+        <div className="form-group">
+          <input type="text" className="form-control" autoComplete="off" placeholder="Last Name" onChange={onUserLastNameChange} value={userLastName} />
+        </div>
+        {label}
         <button className="btn btn-menu btn-outline-primary">Proceed</button>
       </form>
+      <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>Click here to sign out and erase user history.</button>
     </div>
   );
 }
