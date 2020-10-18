@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UserRegistration(props) {
   const [ toTests, setToTests ] = useState(false);
   const [ toAuth, setToAuth ] = useState(false);
+  const [ showModal, setShowModal ] = useState(false);
   const [ userType, setUserType ] = useState('examiner');
   const [ userFirstName, setUserFirstName ] = useState('');
   const [ userLastName, setUserLastName ] = useState('');
@@ -48,11 +50,12 @@ function UserRegistration(props) {
     }
   };
 
-  const onBackButtonClick = (e) => {
+  const signOut = (e) => {
     Cookies.remove('loggedIn');
     Cookies.remove('userFirstName');
     Cookies.remove('userLastName');
     Cookies.remove('userType');
+    Cookies.remove('noPulse');
     setToAuth(true);
   };
 
@@ -123,11 +126,23 @@ function UserRegistration(props) {
           />
         </div>
         {label}
-        <button className="btn btn-menu btn-outline-primary">Proceed</button>
+        <button className="btn btn-menu btn-outline-primary">Register</button>
       </form>
-      <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>
+      <p className="btn w-100 subtle-label" onClick={() => setShowModal(true)}>
         Click here to sign out and erase session history.
-      </button>
+      </p>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="sm" centered>
+        <Modal.Body>
+          Are you sure you want to sign out?
+          <Button style={{ float: 'right' }} variant="secondary-outline" onClick={signOut}>
+            Yes
+          </Button>
+          <Button style={{ float: 'right' }} variant="secondary-outline" onClick={() => setShowModal(false)}>
+            No
+          </Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

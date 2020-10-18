@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Collapse } from 'react-bootstrap';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/TestDashboard/TestResultsModal.css';
 
@@ -63,7 +64,7 @@ function TestResultsModal(props) {
           let resultOfSubtest = results[cat] && results[cat].find((result) => result.subtest === subtest);
 
           if (resultOfSubtest) {
-            let iconResult = resultOfSubtest.passed ? '✅' : '❌';
+            let iconResult = resultOfSubtest.passed ? <FaCheck color="green" /> : <FaTimes color="red" />;
             let secondsElapsed = resultOfSubtest.secondsElapsed ? `(${resultOfSubtest.secondsElapsed}s)` : null;
             let subtestName = subtest.item || subtest;
             return (

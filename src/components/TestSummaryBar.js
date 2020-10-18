@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import '../css/TestDashboard/TestSummaryBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TestSummaryBar(props) {
   const [ hasBeenClicked, setHasBeenClicked ] = useState(false);
+
+  useEffect(() => {
+    if (Cookies.get('noPulse')) {
+      setHasBeenClicked(true);
+    }
+  }, []);
 
   const { testCategory, numberOfTests, ithTest } = props;
   const mapFullCategoryName = {
@@ -15,6 +22,7 @@ function TestSummaryBar(props) {
   };
 
   const handleClick = (e) => {
+    Cookies.set('noPulse', true);
     setHasBeenClicked(true);
     props.openModal();
   };
