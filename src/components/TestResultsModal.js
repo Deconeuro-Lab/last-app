@@ -12,7 +12,7 @@ function TestResultsModal(props) {
   const [ showpicID, setShowpicID ] = useState(false);
   const [ showVerbal, setShowVerbal ] = useState(false);
 
-  const { testCategories, previousTestCategoryIndex, tests, results, entireTestIsDone } = props;
+  const { testCategories, previousTestCategoryIndex, tests, results } = props;
 
   // we'd like to show the results of the previous test category (list not collapsed)
   // this is undefined at the start and end of the test (so show all categories)
@@ -64,7 +64,7 @@ function TestResultsModal(props) {
           let resultOfSubtest = results[cat] && results[cat].find((result) => result.subtest === subtest);
 
           if (resultOfSubtest) {
-            let iconResult = resultOfSubtest.passed ? <FaCheck color="green" /> : <FaTimes color="red" />;
+            let iconResult = resultOfSubtest.passed ? <FaCheck color="green" /> : <FaTimes color="#dc3545" />;
             let secondsElapsed = resultOfSubtest.secondsElapsed ? `(${resultOfSubtest.secondsElapsed}s)` : null;
             let subtestName = subtest.item || subtest;
             return (
@@ -100,7 +100,7 @@ function TestResultsModal(props) {
         >
           {`${ith}. ${fullCategoryName}`}
           <span className="CategoryTitle-DropIcon">
-            <i className={'arrow ' + (show ? 'arrow-up' : 'arrow-down')} />
+            <i className={'DropIcon-Arrow ' + (show ? 'DropIcon-Arrow-Up' : 'DropIcon-Arrow-Down')} />
           </span>
         </p>
         <Collapse in={mapCategoryCollapse[cat][0]}>{generateListOfSubtests(cat)}</Collapse>

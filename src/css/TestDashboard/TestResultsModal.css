@@ -6,19 +6,19 @@
   float: right;
 }
 
-.arrow {
+.DropIcon-Arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
 }
 
-.arrow-up {
+.DropIcon-Arrow-Up {
   transform: rotate(-135deg);
   -webkit-transform: rotate(-135deg);
 }
 
-.arrow-down {
+.DropIcon-Arrow-Down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }

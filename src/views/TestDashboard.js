@@ -16,9 +16,8 @@ function TestDashboard(props) {
   const [ entireTestIsDone, setEntireTestIsDone ] = useState(false);
   const [ currentSubtestIndex, setCurrentSubtestIndex ] = useState(0);
   const [ currentTestCategoryIndex, setCurrentTestCategoryIndex ] = useState(0);
-  // modal (popups) and other related state
+  // modal (popups) state
   const [ showTestResultsModal, setShowTestResultsModal ] = useState(false);
-  const [ hadClickedSummaryBar, setHadClickedSummaryBar ] = useState(false);
   // subtest timer state
   const [ currentSubtestHasStarted, setCurrentSubtestHasStarted ] = useState(false);
   const [ currentSubtestMSElapsed, setCurrentSubtestMSElapsed ] = useState(0); // miliseconds elapsed for the current subtest (ie. name the pineapple)

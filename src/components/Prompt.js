@@ -49,8 +49,8 @@ function Prompt(props) {
           {timeElapsedLabel}
         </p>
 
-        <p className="m-0">{prompt1}</p>
-        <p>{prompt2}</p>
+        {prompt1}
+        {prompt2}
 
         <button
           // deconeuro blue:
