@@ -77,7 +77,11 @@ function UserRegistration(props) {
 
   let label;
   if (hadSubmittedEmptyForm) {
-    label = <p className="subtle-label">Please complete the form.</p>;
+    label = (
+      <p style={{ color: 'red' }} className="subtle-label">
+        Please complete the form.
+      </p>
+    );
   } else {
     label = (
       <p className="subtle-label" style={{ visibility: 'hidden' }}>

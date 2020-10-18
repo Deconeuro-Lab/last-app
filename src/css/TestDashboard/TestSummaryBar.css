@@ -1,0 +1,48 @@
+.TestSummaryBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  width: 40%;
+}
+
+.TestSummaryBar-Text {
+  color: #fff;
+  background-color: #007bff;
+  /* background-color: #f05a28; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 0px 0px 50px 50px;
+  margin: 0;
+  cursor: pointer;
+
+  transition: background-color 0.15s ease;
+}
+
+.TestSummaryBar-Text:hover {
+  background-color: #0069d9;
+  /* deconeuro orange: */
+  /* background-color: #cf4d16; */
+  transition: background-color 0.15s ease;
+}
+
+.pulse {
+  animation: pulse-black 2s infinite;
+}
+
+@keyframes pulse-black {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0 #3e9bff;
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 50px 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}

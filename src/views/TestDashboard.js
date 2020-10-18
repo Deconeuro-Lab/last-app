@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import ViewPanel from '../components/ViewPanel';
 import ControlPanel from '../components/ControlPanel';
 import TestResultsModal from '../components/TestResultsModal';
+import TestSummaryBar from '../components/TestSummaryBar';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/TestDashboard/TestDashboard.css';
@@ -15,15 +16,17 @@ function TestDashboard(props) {
   const [ entireTestIsDone, setEntireTestIsDone ] = useState(false);
   const [ currentSubtestIndex, setCurrentSubtestIndex ] = useState(0);
   const [ currentTestCategoryIndex, setCurrentTestCategoryIndex ] = useState(0);
-  // modal (popups) state
+  // modal (popups) and other related state
   const [ showTestResultsModal, setShowTestResultsModal ] = useState(false);
+  const [ hadClickedSummaryBar, setHadClickedSummaryBar ] = useState(false);
   // subtest timer state
   const [ currentSubtestHasStarted, setCurrentSubtestHasStarted ] = useState(false);
   const [ currentSubtestMSElapsed, setCurrentSubtestMSElapsed ] = useState(0); // miliseconds elapsed for the current subtest (ie. name the pineapple)
 
   useEffect(
     () => {
-      if (currentSubtestIndex === 0) {
+      // show the modal whenver a set of tests is done (index gets reset to 0)
+      if (currentSubtestIndex === 0 && currentTestCategoryIndex !== 0) {
         setShowTestResultsModal(true);
       }
     },
@@ -115,6 +118,13 @@ function TestDashboard(props) {
 
   return (
     <div className="TestDashboard">
+      <TestSummaryBar
+        testCategory={currentTestCategory}
+        openModal={() => setShowTestResultsModal(true)}
+        numberOfTests={tests[currentTestCategory] && tests[currentTestCategory].length}
+        ithTest={currentSubtestIndex + 1}
+      />
+
       <ViewPanel testVersion={testVersion} testCategory={currentTestCategory} subtest={currentSubtest} />
 
       <ControlPanel
