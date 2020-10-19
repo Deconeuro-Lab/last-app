@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/menus.css';
 
-const socket = io('http://localhost:4000');
+const socket = io('localhost:4000/');
 
 function TestMenu(props) {
   const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
@@ -79,6 +79,22 @@ function TestMenu(props) {
   } else {
     userOptions = (
       <div className="d-flex flex-column">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            checkPatient(patientID);
+          }}
+        >
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              autoComplete="off"
+              placeholder="Search patient session ID"
+              onChange={(e) => setPatientID(e.target.value)}
+            />
+          </div>
+        </form>
         <p className="m-0">Select Test Version:</p>
         <Link to="/tests/A">
           <button className="btn btn-menu btn-outline-primary m-2">Version A</button>
@@ -100,22 +116,6 @@ function TestMenu(props) {
       <p>
         Your session ID is <strong>{sessionID}</strong>.
       </p>
-
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          checkPatient(patientID);
-        }}
-      >
-        <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            autoComplete="off"
-            onChange={(e) => setPatientID(e.target.value)}
-          />
-        </div>
-      </form>
 
       {userOptions}
       <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>
