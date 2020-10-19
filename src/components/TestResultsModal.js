@@ -30,7 +30,6 @@ function TestResultsModal(props) {
           }
         }
       } else {
-        console.log(previousTestCategoryIndex);
         // show all categories
         for (let category in mapCategoryCollapse) {
           mapCategoryCollapse[category][1](true);

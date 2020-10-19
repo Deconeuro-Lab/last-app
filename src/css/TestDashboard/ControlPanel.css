@@ -16,6 +16,10 @@
 
 /* BUTTONS... */
 
+.btn {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .btn-control {
   width: 10em;
 }
@@ -24,13 +28,4 @@
   margin: 3em;
   height: 50px;
   width: 100px;
-}
-
-.modal-body {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.help-icon {
-  color: #007bff;
 }

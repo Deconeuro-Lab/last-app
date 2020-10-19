@@ -28,7 +28,7 @@ function ViewPanel(props) {
   } else {
     // placeholder if no image
     // viewElement = <p>"{subtest}"</p>;
-    viewElement = <p>Deconeuro™ Lab</p>;
+    viewElement = <p>Déconeuro™ Lab</p>;
   }
 
   // on mount and on orientation change, format test image height

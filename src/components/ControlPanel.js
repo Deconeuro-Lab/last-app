@@ -10,11 +10,9 @@ function ControlPanel(props) {
   let prompt1;
   let prompt2;
   if (testCategory === 'naming') {
-    console.log(subtest);
-
     const popover = (
       <Popover>
-        <Popover.Title as="h3">Highlighted Item</Popover.Title>
+        <Popover.Title as="h3">Highlighted Object</Popover.Title>
         <Popover.Content>
           <p>
             <strong>Correct Responses</strong>: {subtest.acceptableResponses.join(', ')}

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import ViewPanel from '../components/ViewPanel';
 import ControlPanel from '../components/ControlPanel';
+
 import TestResultsModal from '../components/TestResultsModal';
+import YesNoConfirmModal from '../components/YesNoConfirmModal';
+
 import TestSummaryBar from '../components/TestSummaryBar';
+import BackButton from '../components/BackButton';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/TestDashboard/TestDashboard.css';
@@ -18,13 +22,14 @@ function TestDashboard(props) {
   const [ currentTestCategoryIndex, setCurrentTestCategoryIndex ] = useState(0);
   // modal (popups) state
   const [ showTestResultsModal, setShowTestResultsModal ] = useState(false);
+  const [ showGoBackModal, setShowGoBackModal ] = useState(false);
   // subtest timer state
   const [ currentSubtestHasStarted, setCurrentSubtestHasStarted ] = useState(false);
   const [ currentSubtestMSElapsed, setCurrentSubtestMSElapsed ] = useState(0); // miliseconds elapsed for the current subtest (ie. name the pineapple)
 
+  // show the modal whenver a set of tests is done (index gets reset to 0)
   useEffect(
     () => {
-      // show the modal whenver a set of tests is done (index gets reset to 0)
       if (currentSubtestIndex === 0 && currentTestCategoryIndex !== 0) {
         setShowTestResultsModal(true);
       }
@@ -32,12 +37,11 @@ function TestDashboard(props) {
     [ currentTestCategoryIndex ]
   );
 
+  // when the entire test is done
   useEffect(
     () => {
       if (entireTestIsDone) {
-        console.log(`Entire test (version ${testVersion}) is done.`);
         // TODO: clean up state
-
         // TODO: generate report
         setShowTestResultsModal(true);
         console.log(results);
@@ -117,6 +121,8 @@ function TestDashboard(props) {
 
   return (
     <div className="TestDashboard">
+      <BackButton showModal={() => setShowGoBackModal(true)} />
+
       <TestSummaryBar
         testCategory={currentTestCategory}
         openModal={() => setShowTestResultsModal(true)}
@@ -150,6 +156,14 @@ function TestDashboard(props) {
         results={results}
         previousTestCategoryIndex={currentTestCategoryIndex - 1}
         testCategories={testCategories}
+      />
+
+      <YesNoConfirmModal
+        show={showGoBackModal}
+        hideModal={() => setShowGoBackModal(false)}
+        text1="Are you sure you want to exit?"
+        text2="All test progress will be lost."
+        action={props.history.goBack}
       />
 
       {/* TODO: INSTRUCTIONS MODAL */}
