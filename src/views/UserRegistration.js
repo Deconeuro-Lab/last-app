@@ -40,8 +40,8 @@ function UserRegistration(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (userFirstName && userLastName && userType) {
-      Cookies.set('userFirstName', userFirstName);
-      Cookies.set('userLastName', userLastName);
+      Cookies.set('userFirstName', userFirstName.trim());
+      Cookies.set('userLastName', userLastName.trim());
       Cookies.set('userType', userType);
       setToTests(true);
       setHadSubmittedEmptyForm(false);
@@ -64,11 +64,11 @@ function UserRegistration(props) {
   };
 
   const onUserFirstNameChange = (e) => {
-    setUserFirstName(e.target.value.trim());
+    setUserFirstName(e.target.value);
   };
 
   const onUserLastNameChange = (e) => {
-    setUserLastName(e.target.value.trim());
+    setUserLastName(e.target.value);
   };
 
   let userTypeLabel = '';
