@@ -54,7 +54,7 @@ function ControlPanel(props) {
     prompt2 = <p>"{subtest}"</p>;
   } else {
     prompt1 = <p className="m-0">The test has concluded.</p>;
-    prompt2 = <p>You will be able to export the test results in the next update.</p>;
+    prompt2 = <p>You may now export the test results.</p>;
   }
 
   const onPassFailBtnClick = (passed) => {

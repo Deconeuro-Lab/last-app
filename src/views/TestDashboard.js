@@ -156,6 +156,7 @@ function TestDashboard(props) {
         results={results}
         previousTestCategoryIndex={currentTestCategoryIndex - 1}
         testCategories={testCategories}
+        testVersion={testVersion}
       />
 
       <YesNoConfirmModal

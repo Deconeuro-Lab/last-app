@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Collapse } from 'react-bootstrap';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import exportReport from '../util/csv';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/TestDashboard/TestResultsModal.css';
 
-function TestResultsModal(props) {
+function TestResultsModal({
+  show,
+  handleClose,
+  testCategories,
+  previousTestCategoryIndex,
+  tests,
+  results,
+  entireTestIsDone,
+  testVersion
+}) {
   // state determines if that section is collapsed (not shown)
   const [ showNaming, setShowNaming ] = useState(false);
   const [ showRepetition, setShowRepetition ] = useState(false);
   const [ showAutoSeq, setShowAutoSeq ] = useState(false);
   const [ showpicID, setShowpicID ] = useState(false);
   const [ showVerbal, setShowVerbal ] = useState(false);
-
-  const { testCategories, previousTestCategoryIndex, tests, results } = props;
 
   // we'd like to show the results of the previous test category (list not collapsed)
   // this is undefined at the start and end of the test (so show all categories)
@@ -108,20 +116,20 @@ function TestResultsModal(props) {
   });
 
   return (
-    <Modal
-      show={props.show}
-      onHide={props.handleClose}
-      backdrop={true} // try setting to false
-      // size="sm"
-      keyboard={false}
-      centered
-    >
+    <Modal show={show} onHide={handleClose} keyboard={false} centered>
       <Modal.Header>
         <Modal.Title>Tests Overview</Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary-outline" onClick={props.handleClose}>
+        <Button
+          variant="none"
+          onClick={() => exportReport(results, testCategories, testVersion)}
+          style={{ visibility: entireTestIsDone ? 'visible' : 'hidden' }}
+        >
+          Export to CSV
+        </Button>
+        <Button variant="none" onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>

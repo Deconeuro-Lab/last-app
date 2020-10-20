@@ -65,8 +65,8 @@ function Prompt(props) {
   } else {
     component = (
       <div className="Prompt">
-        <p className="m-0">{prompt1}</p>
-        <p>{prompt2}</p>
+        {prompt1}
+        {prompt2}
       </div>
     );
   }
