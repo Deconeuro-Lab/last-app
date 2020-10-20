@@ -1,3 +1,12 @@
 .TestDashboard {
   width: 100%;
 }
+
+.modal-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.help-icon {
+  color: #007bff;
+}
