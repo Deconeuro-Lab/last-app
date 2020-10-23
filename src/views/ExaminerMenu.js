@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import InfoAlertModal from '../components/InfoAlertModal';
 import LoadingDots from '../components/LoadingDots';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,6 +12,11 @@ function ExaminerMenu() {
   const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
   const [ sessionID, setSessionID ] = useState(''); // first 5 letters of socket id
   const [ patientSessionIDToConnectTo, setPatientSessionIDToConnectTo ] = useState('');
+  const [ patient, setPatient ] = useState({});
+  // modal (popups) state
+  const [ showPatientFoundModal, setShowPatientFoundModal ] = useState(false);
+  const [ showPatientNotFoundModal, setShowPatientNotFoundModal ] = useState(false);
+  const [ showInvalidSessionIDModal, setShowInvalidSessionIDModal ] = useState(false);
 
   useEffect(() => {
     if (ws.connected) socketSetup();
@@ -27,8 +33,9 @@ function ExaminerMenu() {
   }, []);
 
   const socketSetup = () => {
+    console.log(ws);
     setSessionID(generateSessionID(ws.id));
-    ws.emit(`${userType}Registration`, userFirstName, userLastName);
+    ws.emit(`examinerRegistration`, firstName, lastName);
   };
 
   const socketCleanup = () => {
@@ -43,14 +50,18 @@ function ExaminerMenu() {
     e.preventDefault();
 
     if (patientSessionIDToConnectTo.length < 5) {
-      alert('Enter a 5-character session ID.');
+      setShowInvalidSessionIDModal(true);
     } else {
-      ws.emit('getPatientWithSessionID', patientSessionIDToConnectTo, sessionID, (patient) => {
-        if (patient) alert(`Patient found (${patient.firstName}, ${patient.lastName}, ${patient.patientSessionID})`);
-        else alert("Patient doesn't exist");
+      let examiner = { firstName, lastName, sessionID };
+      ws.emit('getPatientWithSessionID', patientSessionIDToConnectTo, examiner, (patient) => {
+        if (patient) {
+          setPatient(patient);
+          setShowPatientFoundModal(true);
+        } else {
+          setShowPatientNotFoundModal(true);
+        }
       });
     }
-    setPatientSessionIDToConnectTo('');
   };
 
   const onBackButtonClick = () => {
@@ -58,13 +69,13 @@ function ExaminerMenu() {
   };
 
   const loggedIn = Cookies.get('loggedIn');
-  const userFirstName = Cookies.get('userFirstName');
-  const userLastName = Cookies.get('userLastName');
+  const firstName = Cookies.get('userFirstName');
+  const lastName = Cookies.get('userLastName');
   const userType = Cookies.get('userType');
 
   if (!loggedIn) return <Redirect to="/" />;
 
-  if (wantsToReenterUserInfo || !userFirstName || !userLastName || !userType || userType === 'patient') {
+  if (wantsToReenterUserInfo || !firstName || !lastName || !userType || userType === 'patient') {
     return (
       <Redirect
         to={{
@@ -78,12 +89,12 @@ function ExaminerMenu() {
   return (
     <div className="ExaminerMenu d-flex flex-column align-items-center">
       <h4>LASTen App</h4>
-      <p className="m-0">Welcome, {userFirstName}.</p>
+      <p className="m-0">Welcome, {firstName}.</p>
       <p className="m-0">You are registered as an examiner.</p>
       {sessionID ? (
         <div>
           <p>
-            Your session ID is <strong>{sessionID}</strong>
+            Your session ID is <strong>{sessionID}</strong>.
           </p>
           <div className="d-flex flex-column">
             <form onSubmit={attemptConnectionWithPatient}>
@@ -99,7 +110,7 @@ function ExaminerMenu() {
                   onChange={(e) => setPatientSessionIDToConnectTo(e.target.value)}
                 />
               </div>
-              <button className="btn btn-sm btn-outline-primary">Connect to Patient</button>
+              <button className="btn btn-menu btn-outline-primary">Connect to Patient</button>
             </form>
             {/* <p className="m-0">Select Test Version:</p>
         <Link to="/tests/A">
@@ -118,6 +129,42 @@ function ExaminerMenu() {
       <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>
         Click here to re-enter your user info.
       </button>
+
+      <InfoAlertModal
+        show={showPatientFoundModal}
+        hideModal={() => setShowPatientFoundModal(false)}
+        label1={<p className="m-0">Patient has been found!</p>}
+        label2={
+          <p className="m-0">
+            Please confirm that their name is{' '}
+            <strong>
+              {patient.firstName} {patient.lastName}
+            </strong>.
+          </p>
+        }
+      />
+
+      <InfoAlertModal
+        show={showPatientNotFoundModal}
+        hideModal={() => setShowPatientNotFoundModal(false)}
+        onExit={() => {
+          setPatientSessionIDToConnectTo('');
+        }}
+        label1={
+          <p className="m-0">
+            Patient with session ID <strong>{patientSessionIDToConnectTo}</strong> does not exist or has disconnected.
+          </p>
+        }
+      />
+
+      <InfoAlertModal
+        show={showInvalidSessionIDModal}
+        hideModal={() => setShowInvalidSessionIDModal(false)}
+        onExit={() => {
+          setPatientSessionIDToConnectTo('');
+        }}
+        label1={<p className="m-0">Please enter a 5-character session ID.</p>}
+      />
     </div>
   );
 }

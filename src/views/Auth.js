@@ -4,13 +4,15 @@ import { Dot } from 'react-animated-dots';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import ws from '../websocket';
+
 function Auth() {
   const [ password, setPassword ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
   const [ hadEnteredWrongPass, setHadEnteredWrongPass ] = useState(false);
 
   useEffect(() => {
-    // window.location.reload(false);
+    // if (ws.connected) ws.disconnect();
   }, []);
 
   const SECRET = 'topsecret88';

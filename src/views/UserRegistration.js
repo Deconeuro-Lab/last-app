@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Modal, Button } from 'react-bootstrap';
+import YesNoConfirmModal from '../components/YesNoConfirmModal';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import ws from '../websocket';
 
 function UserRegistration(props) {
   const [ toUserMenus, setToUserMenus ] = useState(false);
@@ -134,17 +136,12 @@ function UserRegistration(props) {
         Click here to sign out and erase session history.
       </p>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="sm" centered>
-        <Modal.Body>
-          Are you sure you want to sign out?
-          <Button style={{ float: 'right' }} variant="secondary-outline" onClick={signOut}>
-            Yes
-          </Button>
-          <Button style={{ float: 'right' }} variant="secondary-outline" onClick={() => setShowModal(false)}>
-            No
-          </Button>
-        </Modal.Body>
-      </Modal>
+      <YesNoConfirmModal
+        show={showModal}
+        hideModal={() => setShowModal(false)}
+        text1="Are you sure you want to sign out?"
+        action={signOut}
+      />
     </div>
   );
 }

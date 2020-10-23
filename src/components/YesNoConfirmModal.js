@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function YesNoConfirmModal({ text1, text2, show, hideModal, action }) {
-  let label1 = <p className="m-0">{text1}</p>;
+  let label1 = text1 ? <p className="m-0">{text1}</p> : null;
   let label2 = text2 ? <p className="m-0">{text2}</p> : null;
 
   return (
