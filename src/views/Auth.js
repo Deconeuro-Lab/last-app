@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Dot } from 'react-animated-dots';
 import Cookies from 'js-cookie';
@@ -8,6 +8,10 @@ function Auth() {
   const [ password, setPassword ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
   const [ hadEnteredWrongPass, setHadEnteredWrongPass ] = useState(false);
+
+  useEffect(() => {
+    // window.location.reload(false);
+  }, []);
 
   const SECRET = 'topsecret88';
   const loggedIn = Cookies.get('loggedIn');

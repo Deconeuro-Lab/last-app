@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UserRegistration(props) {
-  const [ toTests, setToTests ] = useState(false);
+  const [ toUserMenus, setToUserMenus ] = useState(false);
   const [ toAuth, setToAuth ] = useState(false);
   const [ showModal, setShowModal ] = useState(false);
   const [ userType, setUserType ] = useState('examiner');
@@ -24,18 +24,21 @@ function UserRegistration(props) {
   const prevUserLastName = Cookies.get('userLastName');
   const prevUserType = Cookies.get('userType');
 
+  const userWantsToReenterUserInfo = () => {
+    return props.location.state && props.location.state.wantsToReenterUserInfo;
+  };
+
+  const userInfoIsComplete = () => {
+    return prevUserFirstName && prevUserLastName && prevUserType;
+  };
+
   if (!loggedIn || toAuth) {
     return <Redirect to="/" />;
-  } else if (toTests || (!props.location.state && (prevUserFirstName && prevUserLastName && prevUserType))) {
-    return (
-      <Redirect
-        to={{
-          pathname: '/tests',
-          state: { userFirstName, userLastName, userType }
-        }}
-      />
-    );
+  } else if (toUserMenus || (!userWantsToReenterUserInfo() && userInfoIsComplete())) {
+    return <Redirect to={`/${prevUserType}`} />;
   }
+
+  // form control:
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +46,7 @@ function UserRegistration(props) {
       Cookies.set('userFirstName', userFirstName.trim());
       Cookies.set('userLastName', userLastName.trim());
       Cookies.set('userType', userType);
-      setToTests(true);
+      setToUserMenus(true);
       setHadSubmittedEmptyForm(false);
     } else {
       setHadSubmittedEmptyForm(true);
@@ -71,22 +74,21 @@ function UserRegistration(props) {
     setUserLastName(e.target.value);
   };
 
-  let userTypeLabel = '';
-  if (userType === 'examiner') {
-    userTypeLabel = 'I am an...';
-  } else {
-    userTypeLabel = 'I am a...';
-  }
+  // form labels:
 
-  let label;
+  let userTypeLabel = '';
+  if (userType === 'examiner') userTypeLabel = 'I am an...';
+  else userTypeLabel = 'I am a...';
+
+  let dangerLabel;
   if (hadSubmittedEmptyForm) {
-    label = (
+    dangerLabel = (
       <p style={{ color: 'red' }} className="subtle-label">
         Please complete the form.
       </p>
     );
   } else {
-    label = (
+    dangerLabel = (
       <p className="subtle-label" style={{ visibility: 'hidden' }}>
         a
       </p>
@@ -125,7 +127,7 @@ function UserRegistration(props) {
             value={userLastName}
           />
         </div>
-        {label}
+        {dangerLabel}
         <button className="btn btn-menu btn-outline-primary">Register</button>
       </form>
       <p className="btn w-100 subtle-label" onClick={() => setShowModal(true)}>
