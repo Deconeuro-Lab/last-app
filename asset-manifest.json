@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/lasten-app/static/css/main.9185ce52.chunk.css",
+    "main.js": "/lasten-app/static/js/main.87768cf0.chunk.js",
+    "main.js.map": "/lasten-app/static/js/main.87768cf0.chunk.js.map",
+    "runtime-main.js": "/lasten-app/static/js/runtime-main.158ceb85.js",
+    "runtime-main.js.map": "/lasten-app/static/js/runtime-main.158ceb85.js.map",
+    "static/css/2.d9ad5f5c.chunk.css": "/lasten-app/static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.82f71da2.chunk.js": "/lasten-app/static/js/2.82f71da2.chunk.js",
+    "static/js/2.82f71da2.chunk.js.map": "/lasten-app/static/js/2.82f71da2.chunk.js.map",
+    "index.html": "/lasten-app/index.html",
+    "precache-manifest.5a51e1eb6fbfb134eff82234c8a4052f.js": "/lasten-app/precache-manifest.5a51e1eb6fbfb134eff82234c8a4052f.js",
+    "service-worker.js": "/lasten-app/service-worker.js",
+    "static/css/2.d9ad5f5c.chunk.css.map": "/lasten-app/static/css/2.d9ad5f5c.chunk.css.map",
+    "static/css/main.9185ce52.chunk.css.map": "/lasten-app/static/css/main.9185ce52.chunk.css.map",
+    "static/js/2.82f71da2.chunk.js.LICENSE.txt": "/lasten-app/static/js/2.82f71da2.chunk.js.LICENSE.txt",
+    "static/media/test-blur.jpg": "/lasten-app/static/media/test-blur.5ee5746f.jpg",
+    "static/media/test-butterfly.jpg": "/lasten-app/static/media/test-butterfly.65990f4c.jpg",
+    "static/media/test-croc.jpg": "/lasten-app/static/media/test-croc.097fa81b.jpg",
+    "static/media/test-fork.jpg": "/lasten-app/static/media/test-fork.e3c88a8c.jpg",
+    "static/media/test-giraffe.jpg": "/lasten-app/static/media/test-giraffe.26fdbe93.jpg",
+    "static/media/test-knife.jpg": "/lasten-app/static/media/test-knife.d1bad894.jpg",
+    "static/media/test-pen.jpg": "/lasten-app/static/media/test-pen.7b418cd7.jpg",
+    "static/media/test-pencil.jpg": "/lasten-app/static/media/test-pencil.57c2245c.jpg",
+    "static/media/test-phone.jpg": "/lasten-app/static/media/test-phone.1080adcb.jpg",
+    "static/media/test-pineapple.jpg": "/lasten-app/static/media/test-pineapple.ae8de97a.jpg",
+    "static/media/test-tv.jpg": "/lasten-app/static/media/test-tv.bee55f9e.jpg",
+    "static/media/test.jpg": "/lasten-app/static/media/test.43e90790.jpg",
+    "static/media/test.png": "/lasten-app/static/media/test.d70945e8.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.158ceb85.js",
+    "static/css/2.d9ad5f5c.chunk.css",
+    "static/js/2.82f71da2.chunk.js",
+    "static/css/main.9185ce52.chunk.css",
+    "static/js/main.87768cf0.chunk.js"
+  ]
+}
