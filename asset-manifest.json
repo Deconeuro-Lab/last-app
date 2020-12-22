@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/last-app/static/css/main.9185ce52.chunk.css",
-    "main.js": "/last-app/static/js/main.17312fcc.chunk.js",
-    "main.js.map": "/last-app/static/js/main.17312fcc.chunk.js.map",
+    "main.css": "/last-app/static/css/main.48bea2e6.chunk.css",
+    "main.js": "/last-app/static/js/main.f7b4e673.chunk.js",
+    "main.js.map": "/last-app/static/js/main.f7b4e673.chunk.js.map",
     "runtime-main.js": "/last-app/static/js/runtime-main.224e1fae.js",
     "runtime-main.js.map": "/last-app/static/js/runtime-main.224e1fae.js.map",
     "static/css/2.d9ad5f5c.chunk.css": "/last-app/static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.bca9f0e9.chunk.js": "/last-app/static/js/2.bca9f0e9.chunk.js",
-    "static/js/2.bca9f0e9.chunk.js.map": "/last-app/static/js/2.bca9f0e9.chunk.js.map",
+    "static/js/2.066e0bd9.chunk.js": "/last-app/static/js/2.066e0bd9.chunk.js",
+    "static/js/2.066e0bd9.chunk.js.map": "/last-app/static/js/2.066e0bd9.chunk.js.map",
     "index.html": "/last-app/index.html",
-    "precache-manifest.b1e9351d47a12a7b9e36d1efdde94e02.js": "/last-app/precache-manifest.b1e9351d47a12a7b9e36d1efdde94e02.js",
+    "precache-manifest.1da2401dd6ddf8cc4cf9aebd4d24933d.js": "/last-app/precache-manifest.1da2401dd6ddf8cc4cf9aebd4d24933d.js",
     "service-worker.js": "/last-app/service-worker.js",
     "static/css/2.d9ad5f5c.chunk.css.map": "/last-app/static/css/2.d9ad5f5c.chunk.css.map",
-    "static/css/main.9185ce52.chunk.css.map": "/last-app/static/css/main.9185ce52.chunk.css.map",
-    "static/js/2.bca9f0e9.chunk.js.LICENSE.txt": "/last-app/static/js/2.bca9f0e9.chunk.js.LICENSE.txt",
+    "static/css/main.48bea2e6.chunk.css.map": "/last-app/static/css/main.48bea2e6.chunk.css.map",
+    "static/js/2.066e0bd9.chunk.js.LICENSE.txt": "/last-app/static/js/2.066e0bd9.chunk.js.LICENSE.txt",
     "static/media/test-blur.jpg": "/last-app/static/media/test-blur.5ee5746f.jpg",
     "static/media/test-butterfly.jpg": "/last-app/static/media/test-butterfly.65990f4c.jpg",
     "static/media/test-croc.jpg": "/last-app/static/media/test-croc.097fa81b.jpg",
@@ -31,8 +31,8 @@
   "entrypoints": [
     "static/js/runtime-main.224e1fae.js",
     "static/css/2.d9ad5f5c.chunk.css",
-    "static/js/2.bca9f0e9.chunk.js",
-    "static/css/main.9185ce52.chunk.css",
-    "static/js/main.17312fcc.chunk.js"
+    "static/js/2.066e0bd9.chunk.js",
+    "static/css/main.48bea2e6.chunk.css",
+    "static/js/main.f7b4e673.chunk.js"
   ]
 }
