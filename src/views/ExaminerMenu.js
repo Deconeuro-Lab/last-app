@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import InfoAlertModal from '../components/InfoAlertModal';
 import LoadingDots from '../components/LoadingDots';
 import Cookies from 'js-cookie';
@@ -9,7 +9,10 @@ import '../css/menus.css';
 import ws from '../websocket';
 
 function ExaminerMenu() {
+  // redirect state
   const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
+  const [ toOfflineTests, setToOfflineTests ] = useState(false);
+  // connection state
   const [ sessionID, setSessionID ] = useState(''); // first 5 letters of socket id
   const [ patientSessionIDToConnectTo, setPatientSessionIDToConnectTo ] = useState('');
   const [ patient, setPatient ] = useState({});
@@ -68,14 +71,19 @@ function ExaminerMenu() {
     setWantsToReenterUserInfo(true);
   };
 
+  const onToOfflineTestsClick = () => {
+    return setToOfflineTests(true);
+  };
+
   const loggedIn = Cookies.get('loggedIn');
   const firstName = Cookies.get('userFirstName');
   const lastName = Cookies.get('userLastName');
   const userType = Cookies.get('userType');
 
   if (!loggedIn) return <Redirect to="/" />;
-
-  if (wantsToReenterUserInfo || !firstName || !lastName || !userType || userType === 'patient') {
+  if (toOfflineTests) return <Redirect to="/examiner/tests" />;
+  if (userType === 'patient') return <Redirect to="/patient" />;
+  if (wantsToReenterUserInfo || !firstName || !lastName || !userType) {
     return (
       <Redirect
         to={{
@@ -126,9 +134,12 @@ function ExaminerMenu() {
           Connecting to the server<LoadingDots />
         </p>
       )}
-      <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>
+      <p className="btn mt-3 mb-0 w-100 subtle-label" onClick={onToOfflineTestsClick}>
+        Can't connect? Click here to conduct an offline test.
+      </p>
+      <p className="btn pt-0 w-100 subtle-label" onClick={onBackButtonClick}>
         Click here to re-enter your user info.
-      </button>
+      </p>
 
       <InfoAlertModal
         show={showPatientFoundModal}

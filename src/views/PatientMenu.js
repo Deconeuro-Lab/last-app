@@ -59,8 +59,8 @@ function PatientMenu() {
   const userType = Cookies.get('userType');
 
   if (!loggedIn) return <Redirect to="/" />;
-
-  if (wantsToReenterUserInfo || !firstName || !lastName || !userType || userType === 'examiner') {
+  if (userType === 'examiner') return <Redirect to="/examiner" />;
+  if (wantsToReenterUserInfo || !firstName || !lastName || !userType) {
     return (
       <Redirect
         to={{

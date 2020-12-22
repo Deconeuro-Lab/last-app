@@ -27,3 +27,15 @@
   width: 100px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+@media only screen and (max-width: 600px) {
+  .ControlPanel-Center {
+    font-size: 0.8em;
+  }
+
+  .btn-control-passfail {
+    margin: 0.5em;
+    height: auto;
+    width: auto;
+  }
+}

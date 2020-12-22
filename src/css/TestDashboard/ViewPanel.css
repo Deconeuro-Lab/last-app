@@ -21,6 +21,14 @@
   max-width: 100vw;
 }
 
+@media only screen and (max-width: 600px) {
+  .ViewPanel-Image {
+    height: auto;
+  }
+}
+
+/* ANIMATIONS: */
+
 .fade-in {
   animation: fadeIn ease 2s;
   -webkit-animation: fadeIn ease 2s;

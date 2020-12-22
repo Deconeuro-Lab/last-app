@@ -4,6 +4,7 @@ import Auth from './views/Auth';
 import UserRegistration from './views/UserRegistration';
 import ExaminerMenu from './views/ExaminerMenu';
 import PatientMenu from './views/PatientMenu';
+import ExaminerTests from './views/ExaminerTests';
 import TestDashboard from './views/TestDashboard';
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,10 +15,11 @@ function App() {
       <HashRouter basename="/">
         <Route component={Auth} exact path="/" />
         <Route component={UserRegistration} exact path="/user-registration" />
-        <Route component={ExaminerMenu} exact path="/examiner" />
         <Route component={PatientMenu} exact path="/patient" />
-        <Route component={TestDashboard} exact path="/tests/A" />
-        <Route component={TestDashboard} exact path="/tests/B" />
+        <Route component={ExaminerMenu} exact path="/examiner" />
+        <Route component={ExaminerTests} exact path="/examiner/tests" />
+        <Route component={TestDashboard} exact path="/examiner/tests/A" />
+        <Route component={TestDashboard} exact path="/examiner/tests/B" />
       </HashRouter>
     </div>
   );

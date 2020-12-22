@@ -9,7 +9,7 @@ function InfoAlertModal({ label1, label2, show, hideModal, onExit }) {
         {label1}
         {label2}
         <Button style={{ float: 'right' }} variant="secondary-outline" onClick={hideModal}>
-          Okay
+          Ok
         </Button>
       </Modal.Body>
     </Modal>
