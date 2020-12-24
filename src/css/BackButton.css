@@ -18,3 +18,10 @@
   background-color: #0069d9;
   transition: background-color 0.15s ease;
 }
+
+
+@media only screen and (max-width: 600px) {
+  .BackButton {
+    width: 13%;
+  }
+}
