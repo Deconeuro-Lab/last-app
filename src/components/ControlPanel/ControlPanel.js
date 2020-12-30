@@ -1,8 +1,8 @@
 import React from 'react';
-import Prompt from './Prompt';
+import Prompt from '../Prompt/Prompt';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/TestDashboard/ControlPanel.css';
+import './ControlPanel.css';
 
 function ControlPanel(props) {
   const { subtest, testCategory, isTimerRequired, currentSubtestHasStarted, entireTestIsDone } = props;

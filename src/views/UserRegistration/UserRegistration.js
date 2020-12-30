@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import YesNoConfirmModal from '../components/YesNoConfirmModal';
+import YesNoConfirmModal from '../../components/YesNoConfirmModal/YesNoConfirmModal';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ws from '../websocket';
+import ws from '../../websocket';
 
 function UserRegistration(props) {
   const [ toUserMenus, setToUserMenus ] = useState(false);

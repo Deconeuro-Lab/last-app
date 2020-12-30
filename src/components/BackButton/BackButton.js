@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/BackButton.css';
+import './BackButton.css';
 
 function BackButton(props) {
   return (

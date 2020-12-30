@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/TestDashboard/ViewPanel.css';
+import './ViewPanel.css';
 
 function ViewPanel(props) {
   const { subtest, testCategory, testVersion } = props;
@@ -11,7 +11,7 @@ function ViewPanel(props) {
     viewElement = (
       <img
         className="ViewPanel-Image fade-in"
-        src={require(`../img/version${testVersion}/${testCategory}/${subtest.jpg}`)}
+        src={require(`../../img/version${testVersion}/${testCategory}/${subtest.jpg}`)}
         alt={subtest.item}
         draggable="false"
       />
@@ -20,7 +20,7 @@ function ViewPanel(props) {
     viewElement = (
       <img
         className="ViewPanel-Image fade-in"
-        src={require(`../img/version${testVersion}/${testCategory}/test.png`)}
+        src={require(`../../img/version${testVersion}/${testCategory}/test.png`)}
         alt="test"
         draggable="false"
       />

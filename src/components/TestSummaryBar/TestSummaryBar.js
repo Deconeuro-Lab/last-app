@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import '../css/TestDashboard/TestSummaryBar.css';
+import './TestSummaryBar.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TestSummaryBar(props) {

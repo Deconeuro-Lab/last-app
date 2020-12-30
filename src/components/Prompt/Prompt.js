@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/TestDashboard/Prompt.css';
+import './Prompt.css';
 
 function Prompt(props) {
   const { prompt1, prompt2, isTimerRequired } = props;

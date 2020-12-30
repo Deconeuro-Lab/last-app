@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, HashRouter } from 'react-router-dom';
-import Auth from './views/Auth';
-import UserRegistration from './views/UserRegistration';
-import ExaminerMenu from './views/ExaminerMenu';
-import PatientMenu from './views/PatientMenu';
-import ExaminerTests from './views/ExaminerTests';
-import TestDashboard from './views/TestDashboard';
+import Auth from './views/AuthMenu/AuthMenu';
+import UserRegistration from './views/UserRegistration/UserRegistration';
+import ExaminerMenu from './views/ExaminerMenu/ExaminerMenu';
+import PatientMenu from './views/PatientMenu/PatientMenu';
+import ExaminerTests from './views/ExaminerTests/ExaminerTests';
+import TestDashboard from './views/TestDashboard/TestDashboard';
 import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

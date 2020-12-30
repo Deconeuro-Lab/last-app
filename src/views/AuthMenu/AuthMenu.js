@@ -4,9 +4,9 @@ import { Dot } from 'react-animated-dots';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ws from '../websocket';
+import ws from '../../websocket';
 
-function Auth() {
+function AuthMenu() {
   const [ password, setPassword ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
   const [ hadEnteredWrongPass, setHadEnteredWrongPass ] = useState(false);
@@ -70,7 +70,7 @@ function Auth() {
   }
 
   return (
-    <div className="Auth">
+    <div className="AuthMenu">
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label>Access Key</label>
@@ -82,4 +82,4 @@ function Auth() {
   );
 }
 
-export default Auth;
+export default AuthMenu;

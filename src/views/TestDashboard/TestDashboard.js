@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import ViewPanel from '../components/ViewPanel';
-import ControlPanel from '../components/ControlPanel';
+import ViewPanel from '../../components/ViewPanel/ViewPanel';
+import ControlPanel from '../../components/ControlPanel/ControlPanel';
 
-import TestResultsModal from '../components/TestResultsModal';
-import YesNoConfirmModal from '../components/YesNoConfirmModal';
+import TestResultsModal from '../../components/TestResultsModal/TestResultsModal';
+import YesNoConfirmModal from '../../components/YesNoConfirmModal/YesNoConfirmModal';
 
-import TestSummaryBar from '../components/TestSummaryBar';
-import BackButton from '../components/BackButton';
+import TestSummaryBar from '../../components/TestSummaryBar/TestSummaryBar';
+import BackButton from '../../components/BackButton/BackButton';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/TestDashboard/TestDashboard.css';
+import './TestDashboard.css';
 
-import LASTests from '../data/LASTests';
+import LASTests from '../../data/LASTests';
 
 function TestDashboard(props) {
   // (sub)test state

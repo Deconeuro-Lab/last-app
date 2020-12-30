@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import InfoAlertModal from '../components/InfoAlertModal';
-import LoadingDots from '../components/LoadingDots';
+import InfoAlertModal from '../../components/InfoAlertModal/InfoAlertModal';
+import LoadingDots from '../../components/LoadingDots/LoadingDots';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/menus.css';
+import '../Menus.css';
 
-import ws from '../websocket';
+import ws from '../../websocket';
 
 function PatientMenu() {
   const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);

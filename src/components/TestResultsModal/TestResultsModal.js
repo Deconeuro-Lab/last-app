@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Collapse } from 'react-bootstrap';
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import exportReport from '../util/csv';
+import exportReport from '../../util/csv';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/TestDashboard/TestResultsModal.css';
+import './TestResultsModal.css';
 
 function TestResultsModal({
   show,
