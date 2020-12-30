@@ -1,3 +1,7 @@
+#### CircleCI Build Status:
+
+[![CircleCI](https://circleci.com/gh/Deconeuro-Lab/last-app.svg?style=shield)](https://app.circleci.com/pipelines/github/Deconeuro-Lab/last-app)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
