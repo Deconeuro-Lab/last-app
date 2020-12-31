@@ -14,9 +14,30 @@ import './TestDashboard.css';
 
 import LASTests from '../../data/LASTests';
 
-function TestDashboard(props) {
+type Props = any;
+
+type NamingSubtest = {
+  item: string;
+  jpg: string;
+  acceptableResponses: string[];
+  incorrectResponses: string[];
+};
+
+type GenericSubtest = string;
+
+type SubtestResult = {
+  passed: boolean;
+  secondsElapsed: number | null;
+  subtest: GenericSubtest | NamingSubtest;
+};
+
+type TestResults = {
+  [key: string]: SubtestResult[]; // the key of the key-value pair is the name of a subtest category
+};
+
+const TestDashboard: React.FC<Props> = (props) => {
   // (sub)test state
-  const [ results, setResults ] = useState({});
+  const [ results, setResults ] = useState<TestResults>({});
   const [ entireTestIsDone, setEntireTestIsDone ] = useState(false);
   const [ currentSubtestIndex, setCurrentSubtestIndex ] = useState(0);
   const [ currentTestCategoryIndex, setCurrentTestCategoryIndex ] = useState(0);
@@ -42,7 +63,6 @@ function TestDashboard(props) {
     () => {
       if (entireTestIsDone) {
         // TODO: clean up state
-        // TODO: generate report
         setShowTestResultsModal(true);
         console.log(results);
       }
@@ -55,41 +75,41 @@ function TestDashboard(props) {
   const userLastName = Cookies.get('userLastName');
   const userType = Cookies.get('userType');
 
-  if (!loggedIn) {
-    return <Redirect to="/" />;
-  } else if (!userFirstName || !userLastName || userType !== 'examiner') {
-    return <Redirect to="/user-registration" />;
-  }
+  if (!loggedIn) return <Redirect to="/" />;
+  if (!userFirstName || !userLastName || userType !== 'examiner') return <Redirect to="/user-registration" />;
 
   // get test version (A or B)
   const pathElements = props.location.pathname.split('/');
-  const testVersion = pathElements[pathElements.length - 1];
+  const testVersion: 'A' | 'B' = pathElements[pathElements.length - 1];
 
   // init test
   const tests = LASTests[testVersion];
   const testCategories = LASTests['categoriesInOrder'];
 
   // init subtest
-  let currentTestCategory;
-  let currentSubtest;
+  let currentTestCategory: string = '';
+  let currentSubtest: GenericSubtest | NamingSubtest = '';
+
   if (currentTestCategoryIndex >= 0 && currentSubtestIndex >= 0) {
     currentTestCategory = testCategories[currentTestCategoryIndex];
     currentSubtest = tests[currentTestCategory][currentSubtestIndex];
   }
 
-  const recordSubtestResult = (passed, isTimerRequired) => {
-    //save result
-    const newResult = {
+  // saves the result of the subtest into the 'results' object
+  const recordSubtestResult = (passed: boolean, isTimerRequired: boolean) => {
+    const newResult: SubtestResult = {
       passed: passed,
       subtest: currentSubtest,
       secondsElapsed: isTimerRequired ? currentSubtestMSElapsed / 100 : null
     };
 
-    const newResults = { ...results };
+    const newResults: TestResults = { ...results };
 
     if (newResults[currentTestCategory]) {
+      // append to existing array
       newResults[currentTestCategory] = [ ...newResults[currentTestCategory], newResult ];
     } else {
+      // create new array
       newResults[currentTestCategory] = [ newResult ];
     }
 
@@ -102,7 +122,7 @@ function TestDashboard(props) {
     setCurrentSubtestMSElapsed(0);
   };
 
-  // might be an issue here when updating indices, next subtest wrong when chaning categories
+  // sets the indices that point to the next subtest
   const setNextTestIndices = () => {
     if (currentSubtestIndex + 1 >= tests[currentTestCategory].length) {
       // go to the next test category, if it exists
@@ -170,6 +190,6 @@ function TestDashboard(props) {
       {/* TODO: INSTRUCTIONS MODAL */}
     </div>
   );
-}
+};
 
 export default TestDashboard;

@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ws from '../../websocket';
 
-function UserRegistration(props) {
+type Props = any;
+
+const UserRegistration: React.FC<Props> = (props) => {
   const [ toUserMenus, setToUserMenus ] = useState(false);
   const [ toAuth, setToAuth ] = useState(false);
   const [ showModal, setShowModal ] = useState(false);
@@ -16,8 +18,8 @@ function UserRegistration(props) {
   const [ hadSubmittedEmptyForm, setHadSubmittedEmptyForm ] = useState(false);
 
   useEffect(() => {
-    setUserFirstName(prevUserFirstName);
-    setUserLastName(prevUserLastName);
+    setUserFirstName(prevUserFirstName || '');
+    setUserLastName(prevUserLastName || '');
     setUserType(prevUserType || 'examiner');
   }, []);
 
@@ -26,23 +28,33 @@ function UserRegistration(props) {
   const prevUserLastName = Cookies.get('userLastName');
   const prevUserType = Cookies.get('userType');
 
-  const userWantsToReenterUserInfo = () => {
+  // redirect logic:
+
+  const userWantsToReenterUserInfo = (): boolean => {
     return props.location.state && props.location.state.wantsToReenterUserInfo;
   };
 
-  const userInfoIsComplete = () => {
+  const userInfoIsComplete = (): boolean => {
+    // @ts-ignore
     return prevUserFirstName && prevUserLastName && prevUserType;
   };
 
-  if (!loggedIn || toAuth) {
-    return <Redirect to="/" />;
-  } else if (toUserMenus || (!userWantsToReenterUserInfo() && userInfoIsComplete())) {
+  const signOut = () => {
+    Cookies.remove('loggedIn');
+    Cookies.remove('userFirstName');
+    Cookies.remove('userLastName');
+    Cookies.remove('userType');
+    Cookies.remove('noPulse');
+    setToAuth(true);
+  };
+
+  if (!loggedIn || toAuth) return <Redirect to="/" />;
+  if (toUserMenus || (!userWantsToReenterUserInfo() && userInfoIsComplete()))
     return <Redirect to={`/${prevUserType}`} />;
-  }
 
   // form control:
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (userFirstName && userLastName && userType) {
       Cookies.set('userFirstName', userFirstName.trim());
@@ -55,24 +67,15 @@ function UserRegistration(props) {
     }
   };
 
-  const signOut = (e) => {
-    Cookies.remove('loggedIn');
-    Cookies.remove('userFirstName');
-    Cookies.remove('userLastName');
-    Cookies.remove('userType');
-    Cookies.remove('noPulse');
-    setToAuth(true);
-  };
-
-  const onUserTypeChange = (e) => {
+  const onUserTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserType(e.target.value);
   };
 
-  const onUserFirstNameChange = (e) => {
+  const onUserFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserFirstName(e.target.value);
   };
 
-  const onUserLastNameChange = (e) => {
+  const onUserLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserLastName(e.target.value);
   };
 
@@ -82,7 +85,7 @@ function UserRegistration(props) {
   if (userType === 'examiner') userTypeLabel = 'I am an...';
   else userTypeLabel = 'I am a...';
 
-  let dangerLabel;
+  let dangerLabel: JSX.Element;
   if (hadSubmittedEmptyForm) {
     dangerLabel = (
       <p style={{ color: 'red' }} className="subtle-label">
@@ -144,6 +147,6 @@ function UserRegistration(props) {
       />
     </div>
   );
-}
+};
 
 export default UserRegistration;

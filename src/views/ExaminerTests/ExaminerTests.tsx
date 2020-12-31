@@ -3,7 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function ExaminerTests(props) {
+const ExaminerTests: React.FC = () => {
   const loggedIn = Cookies.get('loggedIn');
   const firstName = Cookies.get('userFirstName');
   const lastName = Cookies.get('userLastName');
@@ -39,6 +39,6 @@ function ExaminerTests(props) {
       </Link>
     </div>
   );
-}
+};
 
 export default ExaminerTests;

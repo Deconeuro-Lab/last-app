@@ -1,4 +1,6 @@
-const LASTests = {
+const LASTests: {
+  [key: string]: any;
+} = {
   A: {
     naming: [
       {

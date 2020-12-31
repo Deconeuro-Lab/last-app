@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Menus.css';
 
+import { FixMeLater } from '../../User';
+
 import ws from '../../websocket';
 
 function PatientMenu() {
@@ -13,7 +15,7 @@ function PatientMenu() {
   // patient session
   const [ sessionID, setSessionID ] = useState('');
   // examiner session
-  const [ examiner, setExaminer ] = useState({});
+  const [ examiner, setExaminer ] = useState<FixMeLater>({});
   const [ showModal, setShowModal ] = useState(false);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function PatientMenu() {
     ws.on('connect', socketSetup);
     ws.on('reconnect', socketSetup);
     ws.on('disconnect', socketCleanup);
-    ws.on('requestFromExaminer', (examiner) => {
+    ws.on('requestFromExaminer', (examiner: FixMeLater) => {
       setExaminer(examiner);
       setShowModal(true);
     });
@@ -45,7 +47,7 @@ function PatientMenu() {
     setSessionID('');
   };
 
-  const generateSessionID = (socketID) => {
+  const generateSessionID = (socketID: string) => {
     return socketID.toLowerCase().substring(0, 5); // (TODO: SERVER SHOULD PASS THIS TO CLIENT, not set here)
   };
 

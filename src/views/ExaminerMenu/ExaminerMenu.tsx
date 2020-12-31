@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import InfoAlertModal from '../../components/InfoAlertModal/InfoAlertModal';
 import LoadingDots from '../../components/LoadingDots/LoadingDots';
@@ -6,16 +6,18 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Menus.css';
 
+import { FixMeLater } from '../../User';
+
 import ws from '../../websocket';
 
-function ExaminerMenu() {
+const ExaminerMenu: React.FC = () => {
   // redirect state
   const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
   const [ toOfflineTests, setToOfflineTests ] = useState(false);
   // connection state
   const [ sessionID, setSessionID ] = useState(''); // first 5 letters of socket id
   const [ patientSessionIDToConnectTo, setPatientSessionIDToConnectTo ] = useState('');
-  const [ patient, setPatient ] = useState({});
+  const [ patient, setPatient ] = useState<FixMeLater>({});
   // modal (popups) state
   const [ showPatientFoundModal, setShowPatientFoundModal ] = useState(false);
   const [ showPatientNotFoundModal, setShowPatientNotFoundModal ] = useState(false);
@@ -45,18 +47,19 @@ function ExaminerMenu() {
     setSessionID('');
   };
 
-  const generateSessionID = (socketID) => {
+  // MOVE TO SERVERSIDE (to generate session IDs)
+  const generateSessionID = (socketID: string): string => {
     return socketID.toLowerCase().substring(0, 5);
   };
 
-  const attemptConnectionWithPatient = (e) => {
+  const attemptConnectionWithPatient = (e: FormEvent) => {
     e.preventDefault();
 
     if (patientSessionIDToConnectTo.length < 5) {
       setShowInvalidSessionIDModal(true);
     } else {
       let examiner = { firstName, lastName, sessionID };
-      ws.emit('getPatientWithSessionID', patientSessionIDToConnectTo, examiner, (patient) => {
+      ws.emit('getPatientWithSessionID', patientSessionIDToConnectTo, examiner, (patient: any) => {
         if (patient) {
           setPatient(patient);
           setShowPatientFoundModal(true);
@@ -115,7 +118,7 @@ function ExaminerMenu() {
                   placeholder="Enter Patient Session ID"
                   maxLength={5}
                   value={patientSessionIDToConnectTo}
-                  onChange={(e) => setPatientSessionIDToConnectTo(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPatientSessionIDToConnectTo(e.target.value)}
                 />
               </div>
               <button className="btn btn-menu btn-outline-primary">Connect to Patient</button>
@@ -178,6 +181,6 @@ function ExaminerMenu() {
       />
     </div>
   );
-}
+};
 
 export default ExaminerMenu;

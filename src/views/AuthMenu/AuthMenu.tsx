@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ws from '../../websocket';
 
-function AuthMenu() {
+const AuthMenu: React.FC = () => {
   const [ password, setPassword ] = useState('');
   const [ isLoading, setIsLoading ] = useState(false);
   const [ hadEnteredWrongPass, setHadEnteredWrongPass ] = useState(false);
@@ -15,24 +15,22 @@ function AuthMenu() {
     // if (ws.connected) ws.disconnect();
   }, []);
 
+  // slightly sus (actually very sus) to put the password here but we can implement real auth later
   const SECRET = 'topsecret88';
   const loggedIn = Cookies.get('loggedIn');
 
-  if (loggedIn) {
-    return <Redirect to="/user-registration" />;
-  }
+  if (loggedIn) return <Redirect to="/user-registration" />;
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password === '') {
-      return;
-    }
+    if (password === '') return;
     setIsLoading(true);
 
     // redirect after random time, to make it seem like theres something going on in a backend >:)
     setTimeout(() => {
       if (password === SECRET) {
+        // @ts-ignore
         Cookies.set('loggedIn', true);
       } else {
         setPassword('');
@@ -42,8 +40,8 @@ function AuthMenu() {
     }, Math.floor(Math.random() * 1000));
   };
 
-  const onPasswordChange = (e) => {
-    setPassword(e.target.value);
+  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   let label;
@@ -80,6 +78,6 @@ function AuthMenu() {
       </form>
     </div>
   );
-}
+};
 
 export default AuthMenu;

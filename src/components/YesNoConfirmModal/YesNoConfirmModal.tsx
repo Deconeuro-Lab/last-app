@@ -2,7 +2,15 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function YesNoConfirmModal({ text1, text2, show, hideModal, action }) {
+interface Props {
+  text1: string;
+  text2?: string;
+  show: boolean;
+  hideModal(): void; // Callback fired when the 'No' button or non-static backdrop is clicked
+  action(): void; // Callback fired when the 'Yes' button is clicked
+}
+
+const YesNoConfirmModal: React.FC<Props> = ({ text1, text2, show, hideModal, action }) => {
   let label1 = text1 ? <p className="m-0">{text1}</p> : null;
   let label2 = text2 ? <p className="m-0">{text2}</p> : null;
 
@@ -20,6 +28,6 @@ function YesNoConfirmModal({ text1, text2, show, hideModal, action }) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default YesNoConfirmModal;
