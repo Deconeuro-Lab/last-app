@@ -1,6 +1,7 @@
 .subtle-label {
   font-size: 0.75em;
   color: grey;
+  cursor: pointer;
 }
 
 .span-dots {

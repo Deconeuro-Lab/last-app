@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,8 +34,8 @@ const ExaminerTests: React.FC = () => {
       <Link to="/examiner/tests/B">
         <button className="btn btn-menu btn-outline-primary m-2">Version B</button>
       </Link>
-      <Link to="/examiner">
-        <p className="btn w-100 subtle-label">Click here to go back.</p>
+      <Link className="subtle-label" to="/examiner">
+        Click here to go back.
       </Link>
     </div>
   );

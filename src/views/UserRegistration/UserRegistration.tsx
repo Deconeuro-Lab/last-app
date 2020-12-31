@@ -135,9 +135,9 @@ const UserRegistration: React.FC<Props> = (props) => {
         {dangerLabel}
         <button className="btn btn-menu btn-outline-primary">Register</button>
       </form>
-      <p className="btn w-100 subtle-label" onClick={() => setShowModal(true)}>
+      <a className="w-100 subtle-label" onClick={() => setShowModal(true)}>
         Click here to sign out and erase session history.
-      </p>
+      </a>
 
       <YesNoConfirmModal
         show={showModal}

@@ -11,7 +11,6 @@ import { FixMeLater } from '../../User';
 import ws from '../../websocket';
 
 function PatientMenu() {
-  const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
   // patient session
   const [ sessionID, setSessionID ] = useState('');
   // examiner session
@@ -51,10 +50,6 @@ function PatientMenu() {
     return socketID.toLowerCase().substring(0, 5); // (TODO: SERVER SHOULD PASS THIS TO CLIENT, not set here)
   };
 
-  const onBackButtonClick = () => {
-    setWantsToReenterUserInfo(true);
-  };
-
   const loggedIn = Cookies.get('loggedIn');
   const firstName = Cookies.get('userFirstName');
   const lastName = Cookies.get('userLastName');
@@ -62,12 +57,12 @@ function PatientMenu() {
 
   if (!loggedIn) return <Redirect to="/" />;
   if (userType === 'examiner') return <Redirect to="/examiner" />;
-  if (wantsToReenterUserInfo || !firstName || !lastName || !userType) {
+  if (!firstName || !lastName || !userType) {
     return (
       <Redirect
         to={{
           pathname: '/user-registration',
-          state: { wantsToReenterUserInfo }
+          state: { wantsToReenterUserInfo: true }
         }}
       />
     );
@@ -92,9 +87,15 @@ function PatientMenu() {
           Connecting to the server<LoadingDots />
         </p>
       )}
-      <button className="btn w-100 subtle-label" onClick={onBackButtonClick}>
+      <Link
+        className="mt-1 subtle-label"
+        to={{
+          pathname: '/user-registration',
+          state: { wantsToReenterUserInfo: true }
+        }}
+      >
         Click here to re-enter your user info.
-      </button>
+      </Link>
 
       <InfoAlertModal
         show={showModal}

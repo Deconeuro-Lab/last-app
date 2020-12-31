@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import InfoAlertModal from '../../components/InfoAlertModal/InfoAlertModal';
 import LoadingDots from '../../components/LoadingDots/LoadingDots';
 import Cookies from 'js-cookie';
@@ -11,10 +11,7 @@ import { FixMeLater } from '../../User';
 import ws from '../../websocket';
 
 const ExaminerMenu: React.FC = () => {
-  // redirect state
-  const [ wantsToReenterUserInfo, setWantsToReenterUserInfo ] = useState(false);
-  const [ toOfflineTests, setToOfflineTests ] = useState(false);
-  // connection state
+  // network connection state
   const [ sessionID, setSessionID ] = useState(''); // first 5 letters of socket id
   const [ patientSessionIDToConnectTo, setPatientSessionIDToConnectTo ] = useState('');
   const [ patient, setPatient ] = useState<FixMeLater>({});
@@ -70,28 +67,19 @@ const ExaminerMenu: React.FC = () => {
     }
   };
 
-  const onBackButtonClick = () => {
-    setWantsToReenterUserInfo(true);
-  };
-
-  const onToOfflineTestsClick = () => {
-    return setToOfflineTests(true);
-  };
-
   const loggedIn = Cookies.get('loggedIn');
   const firstName = Cookies.get('userFirstName');
   const lastName = Cookies.get('userLastName');
   const userType = Cookies.get('userType');
 
   if (!loggedIn) return <Redirect to="/" />;
-  if (toOfflineTests) return <Redirect to="/examiner/tests" />;
   if (userType === 'patient') return <Redirect to="/patient" />;
-  if (wantsToReenterUserInfo || !firstName || !lastName || !userType) {
+  if (!firstName || !lastName || !userType) {
     return (
       <Redirect
         to={{
           pathname: '/user-registration',
-          state: { wantsToReenterUserInfo }
+          state: { wantsToReenterUserInfo: true }
         }}
       />
     );
@@ -123,13 +111,6 @@ const ExaminerMenu: React.FC = () => {
               </div>
               <button className="btn btn-menu btn-outline-primary">Connect to Patient</button>
             </form>
-            {/* <p className="m-0">Select Test Version:</p>
-        <Link to="/tests/A">
-          <button className="btn btn-menu btn-outline-primary m-2">Version A</button>
-        </Link>
-        <Link to="/tests/B">
-          <button className="btn btn-menu btn-outline-primary m-2">Version B</button>
-        </Link> */}
           </div>
         </div>
       ) : (
@@ -137,12 +118,18 @@ const ExaminerMenu: React.FC = () => {
           Connecting to the server<LoadingDots />
         </p>
       )}
-      <p className="btn mt-3 mb-0 w-100 subtle-label" onClick={onToOfflineTestsClick}>
+      <Link className="mt-3 subtle-label" to="/examiner/tests">
         Can't connect? Click here to conduct an offline test.
-      </p>
-      <p className="btn pt-0 w-100 subtle-label" onClick={onBackButtonClick}>
+      </Link>
+      <Link
+        className="mt-1 subtle-label"
+        to={{
+          pathname: '/user-registration',
+          state: { wantsToReenterUserInfo: true }
+        }}
+      >
         Click here to re-enter your user info.
-      </p>
+      </Link>
 
       <InfoAlertModal
         show={showPatientFoundModal}
