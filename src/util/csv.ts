@@ -1,5 +1,7 @@
-const flattenTestResultsToArray = (results, testCategories) => {
-  const mapFullCategoryName = {
+import { TestResults } from '../types/LASTResultsFormat';
+
+const flattenTestResultsToArray = (results: TestResults, testCategories: string[]) => {
+  const mapFullCategoryName: { [key: string]: string } = {
     naming: 'Naming',
     repetition: 'Repetition',
     autoseq: 'Automatic Sequence',
@@ -14,6 +16,7 @@ const flattenTestResultsToArray = (results, testCategories) => {
       const newObj = { ...result, test: mapFullCategoryName[cat], 'passed?': result.passed ? 'yes' : 'no' };
 
       if (cat === 'naming') {
+        // @ts-ignore
         arr.push({ ...newObj, subtest: result.subtest.item });
       } else {
         arr.push({ ...newObj });
@@ -24,7 +27,7 @@ const flattenTestResultsToArray = (results, testCategories) => {
   return arr;
 };
 
-const arrayOfObjectsTOCSV = (arr) => {
+const arrayOfObjectsTOCSV = (arr: { [key: string]: any }[]) => {
   const csvRows = [];
 
   // get csv headers
@@ -45,7 +48,7 @@ const arrayOfObjectsTOCSV = (arr) => {
   return csvRows.join('\n');
 };
 
-const download = (data, type, fileName) => {
+const download = (data: string, type: string, fileName: string) => {
   const blob = new Blob([ data ], { type });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -57,7 +60,7 @@ const download = (data, type, fileName) => {
   document.body.removeChild(a);
 };
 
-const exportReport = (testResults, testCategories, testVersion) => {
+const exportReport = (testResults: TestResults, testCategories: string[], testVersion: 'A' | 'B') => {
   const data = flattenTestResultsToArray(testResults, testCategories);
   const csv = arrayOfObjectsTOCSV(data);
 
