@@ -1,3 +1,5 @@
+// TODO: re-implement this file without typescript nocheck
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Collapse } from 'react-bootstrap';
 import { FaCheck, FaTimes } from 'react-icons/fa';
@@ -5,7 +7,20 @@ import exportReport from '../../util/csv';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TestResultsModal.css';
 
-function TestResultsModal({
+import { TestResults } from '../../types/LASTResultsFormat';
+
+interface Props {
+  show: boolean;
+  handleClose: () => void;
+  testCategories: string[];
+  previousTestCategoryIndex: number;
+  tests: any;
+  results: TestResults;
+  entireTestIsDone: boolean;
+  testVersion: 'A' | 'B';
+}
+
+const TestResultsModal: React.FC<Props> = ({
   show,
   handleClose,
   testCategories,
@@ -14,7 +29,7 @@ function TestResultsModal({
   results,
   entireTestIsDone,
   testVersion
-}) {
+}) => {
   // state determines if that section is collapsed (not shown)
   const [ showNaming, setShowNaming ] = useState(false);
   const [ showRepetition, setShowRepetition ] = useState(false);
@@ -27,6 +42,7 @@ function TestResultsModal({
   let testCategoryToShow = testCategories[previousTestCategoryIndex];
 
   useEffect(
+    // find out what to display in the modal:
     () => {
       if (mapCategoryCollapse[testCategoryToShow]) {
         // show 1 category
@@ -47,6 +63,7 @@ function TestResultsModal({
     [ previousTestCategoryIndex ]
   );
 
+  // : { [key: string]: [boolean, React.Dispatch<React.SetStateAction<boolean>>] }
   const mapCategoryCollapse = {
     naming: [ showNaming, setShowNaming ],
     repetition: [ showRepetition, setShowRepetition ],
@@ -135,6 +152,6 @@ function TestResultsModal({
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
 export default TestResultsModal;

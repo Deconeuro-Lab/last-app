@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dot } from 'react-animated-dots';
 
-function LoadingDots() {
+const LoadingDots = () => {
   return (
     <span style={{ fontSize: '2em' }}>
       <Dot>.</Dot>
@@ -9,6 +9,6 @@ function LoadingDots() {
       <Dot>.</Dot>
     </span>
   );
-}
+};
 
 export default LoadingDots;

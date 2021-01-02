@@ -4,14 +4,41 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ControlPanel.css';
 
-function ControlPanel(props) {
-  const { subtest, testCategory, isTimerRequired, currentSubtestHasStarted, entireTestIsDone } = props;
+interface Props {
+  subtest: any; // string | NamingSubtest
+  testCategory: string;
+  isTimerRequired: boolean;
+  entireTestIsDone: boolean;
+  currentSubtestHasStarted: boolean;
+  currentSubtestMSElapsed: number;
+  // functions for subtests:
+  goToNextSubtest: () => void;
+  recordSubtestResult: (passed: boolean, isTimerRequired: boolean) => void;
+  // react setState hooks:
+  setCurrentSubtestMSElapsed: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentSubtestHasStarted: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  let prompt1;
-  let prompt2;
+const ControlPanel: React.FC<Props> = ({
+  subtest,
+  testCategory,
+  isTimerRequired,
+  currentSubtestHasStarted,
+  entireTestIsDone,
+  currentSubtestMSElapsed,
+  goToNextSubtest,
+  recordSubtestResult,
+  setCurrentSubtestMSElapsed,
+  setCurrentSubtestHasStarted
+}) => {
+  let prompt1: JSX.Element;
+  let prompt2: JSX.Element;
+
+  // TODO: the following hardcoded mess needs to be refactored lol
+
   if (testCategory === 'naming') {
     const popover = (
-      <Popover>
+      <Popover id="">
         <Popover.Title as="h3">Highlighted Object</Popover.Title>
         <Popover.Content>
           <p>
@@ -57,9 +84,9 @@ function ControlPanel(props) {
     prompt2 = <p>You may now export the test results.</p>;
   }
 
-  const onPassFailBtnClick = (passed) => {
-    props.recordSubtestResult(passed, isTimerRequired);
-    props.goToNextSubtest();
+  const onPassFailBtnClick = (passed: boolean): void => {
+    recordSubtestResult(passed, isTimerRequired);
+    goToNextSubtest();
   };
 
   return (
@@ -80,11 +107,11 @@ function ControlPanel(props) {
           prompt1={prompt1}
           prompt2={prompt2}
           isTimerRequired={isTimerRequired}
-          setCurrentSubtestHasStarted={props.setCurrentSubtestHasStarted}
-          setCurrentSubtestMSElapsed={props.setCurrentSubtestMSElapsed}
-          currentSubtestMSElapsed={props.currentSubtestMSElapsed}
+          currentSubtestMSElapsed={currentSubtestMSElapsed}
+          setCurrentSubtestMSElapsed={setCurrentSubtestMSElapsed}
+          setCurrentSubtestHasStarted={setCurrentSubtestHasStarted}
         />
-        {/* <button className="mt-3" className="btn subtle-label">Need help?</button> */}
+        {/* <button className="btn subtle-label">Need help?</button> */}
       </section>
 
       <button
@@ -99,6 +126,6 @@ function ControlPanel(props) {
       </button>
     </div>
   );
-}
+};
 
 export default ControlPanel;

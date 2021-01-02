@@ -1,6 +1,6 @@
-const LASTests: {
-  [key: string]: any;
-} = {
+import { LASTTestsDataFormat } from '../types/LASTDataFormat';
+
+const LASTests: LASTTestsDataFormat = {
   A: {
     naming: [
       {

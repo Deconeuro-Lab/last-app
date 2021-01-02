@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Menus.css';
 
-import { FixMeLater } from '../../User';
+import { Patient } from '../../types/User';
 
 import ws from '../../websocket';
 
@@ -14,7 +14,7 @@ const ExaminerMenu: React.FC = () => {
   // network connection state
   const [ sessionID, setSessionID ] = useState(''); // first 5 letters of socket id
   const [ patientSessionIDToConnectTo, setPatientSessionIDToConnectTo ] = useState('');
-  const [ patient, setPatient ] = useState<FixMeLater>({});
+  const [ patient, setPatient ] = useState<Patient>({ firstName: '', lastName: '', sessionID: '' });
   // modal (popups) state
   const [ showPatientFoundModal, setShowPatientFoundModal ] = useState(false);
   const [ showPatientNotFoundModal, setShowPatientNotFoundModal ] = useState(false);

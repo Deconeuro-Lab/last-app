@@ -12,28 +12,11 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TestDashboard.css';
 
+import { GenericSubtest, NamingSubtest, EntireTest } from '../../types/LASTDataFormat';
+import { SubtestResult, TestResults } from '../../types/LASTResultsFormat';
 import LASTests from '../../data/LASTests';
 
 type Props = any;
-
-type NamingSubtest = {
-  item: string;
-  jpg: string;
-  acceptableResponses: string[];
-  incorrectResponses: string[];
-};
-
-type GenericSubtest = string;
-
-type SubtestResult = {
-  passed: boolean;
-  secondsElapsed: number | null;
-  subtest: GenericSubtest | NamingSubtest;
-};
-
-type TestResults = {
-  [key: string]: SubtestResult[]; // the key of the key-value pair is the name of a subtest category
-};
 
 const TestDashboard: React.FC<Props> = (props) => {
   // (sub)test state
@@ -83,7 +66,7 @@ const TestDashboard: React.FC<Props> = (props) => {
   const testVersion: 'A' | 'B' = pathElements[pathElements.length - 1];
 
   // init test
-  const tests = LASTests[testVersion];
+  const tests: EntireTest = LASTests[testVersion];
   const testCategories = LASTests['categoriesInOrder'];
 
   // init subtest
@@ -141,7 +124,7 @@ const TestDashboard: React.FC<Props> = (props) => {
 
   return (
     <div className="TestDashboard">
-      <BackButton showModal={() => setShowGoBackModal(true)} />
+      <BackButton action={() => setShowGoBackModal(true)} />
 
       <TestSummaryBar
         testCategory={currentTestCategory}

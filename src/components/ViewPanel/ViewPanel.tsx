@@ -2,16 +2,25 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ViewPanel.css';
 
-function ViewPanel(props) {
-  const { subtest, testCategory, testVersion } = props;
-  let viewElement;
+import { GenericSubtest, NamingSubtest } from '../../types/LASTDataFormat';
+
+interface Props {
+  subtest: GenericSubtest | NamingSubtest;
+  testCategory: string;
+  testVersion: 'A' | 'B';
+}
+
+const ViewPanel: React.FC<Props> = ({ subtest, testCategory, testVersion }) => {
+  let viewElement: JSX.Element;
 
   // TODO: modularize this better
-  if (subtest && subtest.jpg) {
+  if (testCategory === 'naming') {
     viewElement = (
       <img
         className="ViewPanel-Image fade-in"
+        // @ts-ignore
         src={require(`../../img/version${testVersion}/${testCategory}/${subtest.jpg}`)}
+        // @ts-ignore
         alt={subtest.item}
         draggable="false"
       />
@@ -38,6 +47,6 @@ function ViewPanel(props) {
       {viewElement}
     </div>
   );
-}
+};
 
 export default ViewPanel;

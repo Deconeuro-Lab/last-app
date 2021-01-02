@@ -6,15 +6,15 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Menus.css';
 
-import { FixMeLater } from '../../User';
+import { Examiner } from '../../types/User';
 
 import ws from '../../websocket';
 
-function PatientMenu() {
+const PatientMenu = () => {
   // patient session
   const [ sessionID, setSessionID ] = useState('');
   // examiner session
-  const [ examiner, setExaminer ] = useState<FixMeLater>({});
+  const [ examiner, setExaminer ] = useState<Examiner>({ firstName: '', lastName: '', sessionID: '' });
   const [ showModal, setShowModal ] = useState(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function PatientMenu() {
     ws.on('connect', socketSetup);
     ws.on('reconnect', socketSetup);
     ws.on('disconnect', socketCleanup);
-    ws.on('requestFromExaminer', (examiner: FixMeLater) => {
+    ws.on('requestFromExaminer', (examiner: any) => {
       setExaminer(examiner);
       setShowModal(true);
     });
@@ -109,6 +109,6 @@ function PatientMenu() {
       />
     </div>
   );
-}
+};
 
 export default PatientMenu;
